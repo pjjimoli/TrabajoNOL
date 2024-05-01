@@ -5,210 +5,233 @@
 <title>Formularios Log</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import
+	url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
+	;
 
-input{
-margin:5px;
-}
-
-input[type=submit]{
-color:#F8F5DF;
-background-color:#012E40;
-border: none;
-padding: 16px 32px;
-border-radius: 25px;
-margin-left:10px;
-}
-input[type=submit]:hover{
-cursor: pointer;
+input {
+	margin: 5px;
 }
 
-.panel{
-background-color:#F8F5DF;
-border-radius: 25px;
-max-width: fit-content;
-  margin:auto;
-  margin-top:40px;
-  padding: 10px 40px 40px 40px;
-  
-}
-@media (max-width: 1100px) {
-.grupo:hover{
-display:none;
-}
-.grupo{
-opacity:0.6;
-}
-}
-.grupo{
-background-color:#F8F5DF;
-border-radius: 25px;
-position: fixed;
-    bottom: 0;
-    right: 0;
-  padding: 20px 30px 20px 30px;
-  transform: translate(-10%, -80%);
-  
+input[type=submit] {
+	color: #F8F5DF;
+	background-color: #012E40;
+	border: none;
+	padding: 16px 32px;
+	border-radius: 25px;
+	margin-left: 10px;
 }
 
-.center{
-text-align:center;
+input[type=submit]:hover {
+	cursor: pointer;
 }
 
-body{
+.panel {
+	background-color: #F8F5DF;
+	border-radius: 25px;
+	max-width: fit-content;
+	margin: auto;
+	margin-top: 40px;
+	padding: 10px 40px 40px 40px;
+}
+
+@media ( max-width : 1100px) {
+	.grupo:hover {
+		display: none;
+	}
+	.grupo {
+		opacity: 0.6;
+	}
+}
+
+.grupo {
+	background-color: #F8F5DF;
+	border-radius: 25px;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	padding: 20px 30px 20px 30px;
+	transform: translate(-10%, -80%);
+}
+
+.center {
+	text-align: center;
+}
+
+body {
+	color: #74664B;
+	background-color: #012E40;
+	font-family: montserrat;
+}
+
+label {
+	font-weight: 600;
+}
+hr{
 color:#74664B;
-background-color: #012E40;
-font-family:montserrat;
 }
-
-label{
-font-weight:600;
-}
-
 </style>
 </head>
 <body>
 
-<div class="panel">
+	<div class="panel">
 
-<h1 class="center">HITO 1</h1>
+		<h1 class="center">HITO 1</h1>
 
-<h1>Log0 GET</h1>
-<form action="Log0" method="get">
-<table>
-<tr>
-<td>
-<table>
-<tr> 
-<td><label>DNI: </label></td><td><input type="text" required="required" name="dni"/> <br/></td>
-</tr>
-<tr>
-<td><label>Contraseña: </label></td><td><input type="password" required="required" name="pass" /> <br/></td>
-<td>
-</tr>
-</table>
-</td>
-<td><input type="submit"/></td>
-</tr>
-</table>
-</form>
+		<h1>Log0 GET</h1>
+		<form action="Log0" method="get">
+			<table>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td><label>DNI: </label></td>
+								<td><input type="text" required="required" name="dni" /> <br /></td>
+							</tr>
+							<tr>
+								<td><label>Contraseña: </label></td>
+								<td><input type="password" required="required" name="pass" />
+									<br /></td>
+								<td>
+							</tr>
+						</table>
+					</td>
+					<td><input type="submit" /></td>
+				</tr>
+			</table>
+		</form>
+<hr>
+		<h1>Log0 POST</h1>
+		<form action="Log0" method="post">
+			<table>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td><label>DNI: </label></td>
+								<td><input type="text" required="required" name="dni" /> <br /></td>
+							</tr>
+							<tr>
+								<td><label>Contraseña: </label></td>
+								<td><input type="password" required="required" name="pass" />
+									<br /></td>
+								<td>
+							</tr>
+						</table>
+					</td>
+					<td><input type="submit" /></td>
+				</tr>
+			</table>
+		</form>
+<hr>
+		<h1>Log1 GET</h1>
+		<form action="Log1" method="get">
+			<table>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td><label>DNI: </label></td>
+								<td><input type="text" required="required" name="dni" /> <br /></td>
+							</tr>
+							<tr>
+								<td><label>Contraseña: </label></td>
+								<td><input type="password" required="required" name="pass" />
+									<br /></td>
+								<td>
+							</tr>
+						</table>
+					</td>
+					<td><input type="submit" /></td>
+				</tr>
+			</table>
+		</form>
+<hr>
+		<h1>Log1 POST</h1>
+		<form action="Log1" method="post">
+			<table>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td><label>DNI: </label></td>
+								<td><input type="text" required="required" name="dni" /> <br /></td>
+							</tr>
+							<tr>
+								<td><label>Contraseña: </label></td>
+								<td><input type="password" required="required" name="pass" />
+									<br /></td>
+								<td>
+							</tr>
+						</table>
+					</td>
+					<td><input type="submit" /></td>
+				</tr>
+			</table>
+		</form>
+<hr>
+		<h1>Log2 GET</h1>
+		<form action="Log2" method="get">
+			<table>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td><label>DNI: </label></td>
+								<td><input type="text" required="required" name="dni" /> <br /></td>
+							</tr>
+							<tr>
+								<td><label>Contraseña: </label></td>
+								<td><input type="password" required="required" name="pass" />
+									<br /></td>
+								<td>
+							</tr>
+						</table>
+					</td>
+					<td><input type="submit" /></td>
+				</tr>
+			</table>
+		</form>
+<hr>
+		<h1>Log2 POST</h1>
+		<form action="Log2" method="post">
+			<table>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td><label>DNI: </label></td>
+								<td><input type="text" required="required" name="dni" /> <br /></td>
+							</tr>
+							<tr>
+								<td><label>Contraseña: </label></td>
+								<td><input type="password" required="required" name="pass" />
+									<br /></td>
+								<td>
+							</tr>
+						</table>
+					</td>
+					<td><input type="submit" /></td>
+				</tr>
+			</table>
+		</form>
 
-<h1>Log0 POST</h1>
-<form action="Log0" method="post">
-<table>
-<tr>
-<td>
-<table>
-<tr> 
-<td><label>DNI: </label></td><td><input type="text" required="required" name="dni"/> <br/></td>
-</tr>
-<tr>
-<td><label>Contraseña: </label></td><td><input type="password" required="required" name="pass" /> <br/></td>
-<td>
-</tr>
-</table>
-</td>
-<td><input type="submit"/></td>
-</tr>
-</table>
-</form>
 
-<h1>Log1 GET</h1>
-<form action="Log1" method="get">
-<table>
-<tr>
-<td>
-<table>
-<tr> 
-<td><label>DNI: </label></td><td><input type="text" required="required" name="dni"/> <br/></td>
-</tr>
-<tr>
-<td><label>Contraseña: </label></td><td><input type="password" required="required" name="pass" /> <br/></td>
-<td>
-</tr>
-</table>
-</td>
-<td><input type="submit"/></td>
-</tr>
-</table>
-</form>
+	</div>
 
-<h1>Log1 POST</h1>
-<form action="Log1" method="post">
-<table>
-<tr>
-<td>
-<table>
-<tr> 
-<td><label>DNI: </label></td><td><input type="text" required="required" name="dni"/> <br/></td>
-</tr>
-<tr>
-<td><label>Contraseña: </label></td><td><input type="password" required="required" name="pass" /> <br/></td>
-<td>
-</tr>
-</table>
-</td>
-<td><input type="submit"/></td>
-</tr>
-</table>
-</form>
+	<div class="grupo">
+		<h2>Grupo 3ti21_g2</h2>
+		<p>Integrantes:</p>
+		<ul>
+			<li>Blauvac Brea, Adrián Pierre</li>
+			<li>García Bartolomé, Javier</li>
+			<li>Jiménez Olivares, Pedro José</li>
+			<li>Moris Puig, Yvan</li>
+			<li>Rea Mejia, Maria Carmen</li>
+			<li>Trull Martí, Andreu</li>
+		</ul>
 
-<h1>Log2 GET</h1>
-<form action="Log2" method="get">
-<table>
-<tr>
-<td>
-<table>
-<tr> 
-<td><label>DNI: </label></td><td><input type="text" required="required" name="dni"/> <br/></td>
-</tr>
-<tr>
-<td><label>Contraseña: </label></td><td><input type="password" required="required" name="pass" /> <br/></td>
-<td>
-</tr>
-</table>
-</td>
-<td><input type="submit"/></td>
-</tr>
-</table>
-</form>
-
-<h1>Log2 POST</h1>
-<form action="Log2" method="post">
-<table>
-<tr>
-<td>
-<table>
-<tr> 
-<td><label>DNI: </label></td><td><input type="text" required="required" name="dni"/> <br/></td>
-</tr>
-<tr>
-<td><label>Contraseña: </label></td><td><input type="password" required="required" name="pass" /> <br/></td>
-<td>
-</tr>
-</table>
-</td>
-<td><input type="submit"/></td>
-</tr>
-</table>
-</form>
-
-
-</div>
-
-<div class="grupo">
-<h2>Grupo 3ti21_g2</h2>
-<p>Integrantes: </p>
-<ul>
-<li>Blauvac Brea, Adrián Pierre</li>
-<li>García Bartolomé, Javier</li>
-<li>Jiménez Olivares, Pedro José </li>
-<li>Moris Puig, Yvan </li>
-<li>Rea Mejia, Maria Carmen </li>
-<li>Trull Martí, Andreu</li>
-</ul>
-
-</div>
+	</div>
 
 </body>
 </html>
