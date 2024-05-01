@@ -30,16 +30,16 @@ public class Log0 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String preTituloHTML5 = "<!DOCTYPE html>\n<html>\n<head>\n"+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />";
+		LocalDateTime date = LocalDateTime.now();
 		String dni = request.getParameter("dni");
 		String pass = request.getParameter("pass");
-		LocalDateTime fecha = LocalDateTime.now();
 		String uri = request.getContextPath() + request.getServletPath() + request.getPathInfo() + request.getQueryString();
+		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println(preTituloHTML5+"<title>Información Log0</title></head><body>");
+		out.println("<!DOCTYPE html>\n<html>\n<head>\n"+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"+"<title>Información Log0</title></head><body>");
 		out.println("<h1>Información Log0</h1>");
-		out.println("<p>Fecha: "+fecha+" DNI: "+dni+" Contraseña: "+pass+" IP: "+request.getRemoteAddr()+" Método: "+request.getMethod()+" </p>");
+		out.println("<p>Date & Time: "+date+" <br/> DNI: "+dni+" <br/>Password: "+pass+"<br/> IP: "+request.getRemoteAddr()+"<br/> Method: "+request.getMethod()+" </p>");
 		out.println("<p>URI: "+uri+" </p>");
 		out.println("</body></html>");
 	}
@@ -49,16 +49,16 @@ public class Log0 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String preTituloHTML5 = "<!DOCTYPE html>\n<html>\n<head>\n"+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />";
+		LocalDateTime date = LocalDateTime.now();
 		String dni = request.getParameter("dni");
 		String pass = request.getParameter("pass");
-		LocalDateTime fecha = LocalDateTime.now();
 		String uri = request.getContextPath() + request.getServletPath() + request.getPathInfo() + request.getQueryString();
+		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println(preTituloHTML5+"<title>Información Log0</title></head><body>");
+		out.println("<!DOCTYPE html>\n<html>\n<head>\n"+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"+"<title>Información Log0</title></head><body>");
 		out.println("<h1>Información Log0</h1>");
-		out.println("<p>Fecha: "+fecha+" DNI: "+dni+" Contraseña: "+pass+" IP: "+request.getRemoteAddr()+" Método: "+request.getMethod()+" </p>");
+		out.println("<p>Date & Time: "+date+" <br/> DNI: "+dni+" <br/>Password: "+pass+"<br/> IP: "+request.getRemoteAddr()+"<br/> Method: "+request.getMethod()+" </p>");
 		out.println("<p>URI: "+uri+" </p>");
 		out.println("</body></html>");
 	}
