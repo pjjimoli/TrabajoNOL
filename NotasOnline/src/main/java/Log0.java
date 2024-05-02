@@ -1,9 +1,7 @@
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,12 +34,11 @@ public class Log0 extends HttpServlet {
 		String uri = request.getContextPath() + request.getServletPath() + request.getPathInfo() + request.getQueryString();
 		
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE html>\n<html>\n<head>\n"+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"+"<title>Información Log0</title></head><body>");
-		out.println("<h1>Información Log0</h1>");
-		out.println("<p>Date & Time: "+date+" <br/> DNI: "+dni+" <br/>Password: "+pass+"<br/> IP: "+request.getRemoteAddr()+"<br/> Method: "+request.getMethod()+" </p>");
-		out.println("<p>URI: "+uri+" </p>");
-		out.println("</body></html>");
+		response.getWriter().println("<!DOCTYPE html>\n<html>\n<head>\n"+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"+"<title>Información Log0</title></head><body>");
+		response.getWriter().println("<h1>Información Log0</h1>");
+		response.getWriter().println("<p>Date & Time: "+date+" <br/> DNI: "+dni+" <br/>Password: "+pass+"<br/> IP: "+request.getRemoteAddr()+"<br/> Method: "+request.getMethod()+" </p>");
+		response.getWriter().println("<p>URI: "+uri+" </p>");
+		response.getWriter().println("</body></html>");
 	}
 
 	/**
@@ -55,12 +52,11 @@ public class Log0 extends HttpServlet {
 		String uri = request.getContextPath() + request.getServletPath() + request.getPathInfo() + request.getQueryString();
 		
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE html>\n<html>\n<head>\n"+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"+"<title>Información Log0</title></head><body>");
-		out.println("<h1>Información Log0</h1>");
-		out.println("<p>Date & Time: "+date+" <br/> DNI: "+dni+" <br/>Password: "+pass+"<br/> IP: "+request.getRemoteAddr()+"<br/> Method: "+request.getMethod()+" </p>");
-		out.println("<p>URI: "+uri+" </p>");
-		out.println("</body></html>");
+		response.getWriter().println("<!DOCTYPE html>\n<html>\n<head>\n"+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"+"<title>Información Log0</title></head><body>");
+		response.getWriter().println("<h1>Información Log0</h1>");
+		response.getWriter().println("<p>Date & Time: "+date+" <br/> DNI: "+dni+" <br/>Password: "+pass+"<br/> IP: "+request.getRemoteAddr()+"<br/> Method: "+request.getMethod()+" </p>");
+		response.getWriter().println("<p>URI: "+uri+" </p>");
+		response.getWriter().println("</body></html>");
 	}
 
 }
