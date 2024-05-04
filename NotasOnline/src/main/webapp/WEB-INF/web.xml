@@ -35,7 +35,10 @@
     <display-name>Log2</display-name>
     <servlet-name>Log2</servlet-name>
     <servlet-class>Log2</servlet-class>
-    
+    <init-param>
+    <param-name>logFilePath</param-name>
+    <param-value>/home/user/Escritorio/LogForm.txt</param-value>
+  </init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>Log2</servlet-name>

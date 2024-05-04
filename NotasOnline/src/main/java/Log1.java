@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 public class Log1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	String osName = System.getProperty("os.name").toLowerCase();
+	String nombreEscritorio = osName.contains("win") ? "Desktop" : "Escritorio";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -41,9 +43,9 @@ public class Log1 extends HttpServlet {
 		response.getWriter().println("<p>Date & Time: "+date+" <br/> DNI: "+dni+" <br/>Password: "+pass+"<br/> IP: "+request.getRemoteAddr()+"<br/> Method: "+request.getMethod()+" </p>");
 		response.getWriter().println("<p>URI: "+uri+" </p>");
 		response.getWriter().println("</body></html>");
-		response.getWriter().println(System.getProperty("user.home")+"\\Desktop/LogForm.txt");
+		response.getWriter().println("<p>El archivo del Log se ha creado en tu escritorio :) </p>");
 		
-		File log1 = new File(System.getProperty("user.home")+File.separator+"Escritorio/LogForm.txt");
+		File log1 = new File(System.getProperty("user.home") + File.separator + nombreEscritorio + "/LogForm.txt");
 		
 		//Excepción
 		try {
@@ -73,8 +75,9 @@ public class Log1 extends HttpServlet {
 		response.getWriter().println("<p>Date & Time: "+date+" <br/> DNI: "+dni+" <br/>Password: "+pass+"<br/> IP: "+request.getRemoteAddr()+"<br/> Method: "+request.getMethod()+" </p>");
 		response.getWriter().println("<p>URI: "+uri+" </p>");
 		response.getWriter().println("</body></html>");
+		response.getWriter().println("<p>El archivo del Log se ha creado en tu escritorio :) </p>");
 		
-		File log1 = new File("C:\\Users\\persi\\Desktop/DatosLog1.txt");
+		File log1 = new File(System.getProperty("user.home") + File.separator + nombreEscritorio + "/LogForm.txt");
 		//Excepción
 		try {
 			log1.createNewFile();
