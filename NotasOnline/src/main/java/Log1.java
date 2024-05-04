@@ -41,8 +41,17 @@ public class Log1 extends HttpServlet {
 		response.getWriter().println("<p>Date & Time: "+date+" <br/> DNI: "+dni+" <br/>Password: "+pass+"<br/> IP: "+request.getRemoteAddr()+"<br/> Method: "+request.getMethod()+" </p>");
 		response.getWriter().println("<p>URI: "+uri+" </p>");
 		response.getWriter().println("</body></html>");
+		response.getWriter().println(System.getProperty("user.home")+"\\Desktop/LogForm.txt");
 		
-		File log1 = new File("C:\\Users\\persi\\Desktop/DatosLog1.txt");
+		File log1 = new File(System.getProperty("user.home")+File.separator+"Escritorio/LogForm.txt");
+		
+		//Excepción
+		try {
+			log1.createNewFile();
+		} catch (IOException e) {  
+			System.out.println("La creación del archivo no fue posible");
+		}
+		
 		FileWriter log1Write = new FileWriter(log1, true);
 		log1Write.write("Date & Time: "+date+" DNI: "+dni+" Password: "+pass+" IP: "+request.getRemoteAddr()+" Method: "+request.getMethod()+"\nURI: "+uri+ "\n");
 		log1Write.close();
@@ -66,6 +75,12 @@ public class Log1 extends HttpServlet {
 		response.getWriter().println("</body></html>");
 		
 		File log1 = new File("C:\\Users\\persi\\Desktop/DatosLog1.txt");
+		//Excepción
+		try {
+			log1.createNewFile();
+		} catch (IOException e) {  
+			System.out.println("La creación del archivo no fue posible");
+		}
 		FileWriter log1Write = new FileWriter(log1, true);
 		log1Write.write("Date & Time: "+date+" DNI: "+dni+" Password: "+pass+" IP: "+request.getRemoteAddr()+" Method: "+request.getMethod()+"\nURI: "+uri+ "\n");
 		log1Write.close();
