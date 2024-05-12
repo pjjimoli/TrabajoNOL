@@ -1,11 +1,13 @@
 
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+import java.util.List;
+import java.io.BufferedReader;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,12 +48,14 @@ public class login extends HttpServlet {
 		//doGet(request, response);
 		String dni = request.getParameter("usuario");
 		String pass = request.getParameter("pass");
-
+		String key = "";
+		
+		
 		HttpSession session = request.getSession(true);
 		session.setMaxInactiveInterval(1000);
 		response.setContentType("text/html");
 
-		URL CentroEducativo = new URL("http://127.0.0.1:9090/CentroEducativo/login");
+		URL CentroEducativo = new URL("http://localhost:9090/CentroEducativo/login");
 		HttpURLConnection connection = (HttpURLConnection) CentroEducativo.openConnection();
 
 		connection.setDoInput(true);
@@ -64,14 +68,20 @@ public class login extends HttpServlet {
 
 			w.write("{\"dni\": " + "\"" + dni + "\",\n\"password\": " + "\"" + pass + "\"}");
 		}
-		
+		if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+			List<String> cookies = connection.getHeaderFields().get("Set-Cookie");
+			BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			for (String token = ""; (token = buff.readLine()) != null;) {
+				key = token;
+			}
+		}
 		response.setContentType("text/html");
 		response.getWriter()
 				.println("<!DOCTYPE html>\n<html>\n<head>\n"
 						+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"
 						+ "<title>Información Log1</title></head><body>");
-		response.getWriter().println("<h1>Información Log1</h1>");
-		response.getWriter().println("<p>user:" +  dni + "password:"+ pass +"</p>");
+		response.getWriter().println("<h1>Información</h1>");
+		response.getWriter().println("<p>token:" +  key + "</p>");
 	}
 
 }
