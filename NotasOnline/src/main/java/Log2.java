@@ -37,26 +37,25 @@ public class Log2 extends HttpServlet {
 		
 		response.setContentType("text/html");
 		response.getWriter().println("<!DOCTYPE html>\n<html>\n<head>\n"+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"+"<title>Información Log1</title></head><body>");
-		response.getWriter().println("<h1>Información Log2</h1>");
+		response.getWriter().println("<h1>Información Log1</h1>");
 		response.getWriter().println("<p>Date & Time: "+date+" <br/> DNI: "+dni+" <br/>Password: "+pass+"<br/> IP: "+request.getRemoteAddr()+"<br/> Method: "+request.getMethod()+" </p>");
 		response.getWriter().println("<p>URI: "+uri+" </p>");
 		response.getWriter().println("</body></html>");
-		response.getWriter().println("<p>El archivo del Log se ha creado en tu escritorio :) </p>");
 
 
         //Log2 -> configurar la ruta del archivo mediante web.xml
-		File log2 = new File(this.getServletConfig().getInitParameter("logFilePath"));
+		File log1 = new File(getServletContext().getInitParameter("logFilePath"));
 
         //Excepción
         try {
-			log2.createNewFile();
+			log1.createNewFile();
 		} catch (IOException e) {  
 			System.out.println("La creación del archivo no fue posible");
         }
 
-		FileWriter log2Write = new FileWriter(log2, true);
-		log2Write.write("Date & Time: "+date+" DNI: "+dni+" Password: "+pass+" IP: "+request.getRemoteAddr()+" Method: "+request.getMethod()+"\nURI: "+uri+ "\n");
-		log2Write.close();
+		FileWriter log1Write = new FileWriter(log1, true);
+		log1Write.write("Date & Time: "+date+" DNI: "+dni+" Password: "+pass+" IP: "+request.getRemoteAddr()+" Method: "+request.getMethod()+"\nURI: "+uri+ "\n");
+		log1Write.close();
         
 
 	}
@@ -73,26 +72,25 @@ public class Log2 extends HttpServlet {
 		
 		response.setContentType("text/html");
 		response.getWriter().println("<!DOCTYPE html>\n<html>\n<head>\n"+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"+"<title>Información Log1</title></head><body>");
-		response.getWriter().println("<h1>Información Log2</h1>");
+		response.getWriter().println("<h1>Información Log1</h1>");
 		response.getWriter().println("<p>Date & Time: "+date+" <br/> DNI: "+dni+" <br/>Password: "+pass+"<br/> IP: "+request.getRemoteAddr()+"<br/> Method: "+request.getMethod()+" </p>");
 		response.getWriter().println("<p>URI: "+uri+" </p>");
 		response.getWriter().println("</body></html>");
-		response.getWriter().println("<p>El archivo del Log se ha creado en tu escritorio :) </p>");
 
 
         //Log2 -> configurar la ruta del archivo mediante web.xml
-		File log2 = new File(this.getServletConfig().getInitParameter("logFilePath"));
+		File log1 = new File(getServletContext().getInitParameter("logFilePath"));
 
         //Excepción
         try {
-			log2.createNewFile();
+			log1.createNewFile();
 		} catch (IOException e) {  
 			System.out.println("La creación del archivo no fue posible");
         }
 
-		FileWriter log2Write = new FileWriter(log2, true);
-		log2Write.write("Date & Time: "+date+" DNI: "+dni+" Password: "+pass+" IP: "+request.getRemoteAddr()+" Method: "+request.getMethod()+"\nURI: "+uri+ "\n");
-		log2Write.close();
+		FileWriter log1Write = new FileWriter(log1, true);
+		log1Write.write("Date & Time: "+date+" DNI: "+dni+" Password: "+pass+" IP: "+request.getRemoteAddr()+" Method: "+request.getMethod()+"\nURI: "+uri+ "\n");
+		log1Write.close();
 
         
 	}

@@ -10,6 +10,27 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <security-constraint>
+    <web-resource-collection>
+        <web-resource-name>Roles</web-resource-name>
+        <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+        <auth-constraint>
+            <role-name>rolpro</role-name>
+            <role-name>rolalu</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+        <role-name>rolpro</role-name>
+    </security-role>
+    <security-role>
+        <role-name>rolalu</role-name>
+    </security-role>
+    
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>Protegido</realm-name>
+    </login-config>
   <servlet>
     <description></description>
     <display-name>Log0</display-name>
@@ -35,10 +56,7 @@
     <display-name>Log2</display-name>
     <servlet-name>Log2</servlet-name>
     <servlet-class>Log2</servlet-class>
-    <init-param>
-    <param-name>logFilePath</param-name>
-    <param-value>/home/user/Escritorio/LogForm.txt</param-value>
-  </init-param>
+    
   </servlet>
   <servlet-mapping>
     <servlet-name>Log2</servlet-name>
