@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Scanner;
 
 /**
  * Servlet implementation class login
@@ -46,10 +47,9 @@ public class login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		String dni = request.getParameter("usuario");
+		String dni = request.getParameter("dni");
 		String pass = request.getParameter("pass");
-		String key = "";
-		
+	    String key = "";
 		
 		HttpSession session = request.getSession(true);
 		session.setMaxInactiveInterval(1000);
@@ -69,11 +69,16 @@ public class login extends HttpServlet {
 			w.write("{\"dni\": " + "\"" + dni + "\",\n\"password\": " + "\"" + pass + "\"}");
 		}
 		if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-			List<String> cookies = connection.getHeaderFields().get("Set-Cookie");
-			BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			for (String token = ""; (token = buff.readLine()) != null;) {
-				key = token;
-			}
+		    List<String> cookies = connection.getHeaderFields().get("Set-Cookie");
+
+		    try (Scanner scanner = new Scanner(connection.getInputStream(), "UTF-8")) {
+		        String responseLine;
+
+		        while (scanner.hasNextLine()) {
+		            responseLine = scanner.nextLine();
+		            key += responseLine; // Concatenamos cada línea a la cadena key
+		        }
+		    }
 		}
 		response.setContentType("text/html");
 		response.getWriter()
