@@ -91,9 +91,51 @@ public class login extends HttpServlet {
 						+ "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"
 						+ "<title>Información Log1</title></head><body>");
 		response.getWriter().println("<h1>Información</h1>");
-		response.getWriter().println("<p>lista de asig:" + getAsignAlumn(dni, key, cookies).get(1).getNombre()  + "datos asignatura:" + getInfoAsignatura("DEW", key, cookies).getNombre() + "</p>");
+		response.getWriter().println("<p>lista de asig:" + getAsignAlumn(dni, key, cookies).get(1).getNombre()  + "datos asignatura:" + getInfoAsignatura("DEW", key, cookies).getNombre() + "datos alu:" + getAlu(dni, key, cookies).getNombre() + "</p>");
 	}
 
+	private Alumno getAlu(String user,
+			String key, List<String> cookies) throws IOException {
+		HttpURLConnection connection = null;
+
+		String auxiliar = "";
+		String jsonString = "";
+	    Alumno alumno = new Alumno();
+
+		
+		connection = (HttpURLConnection) new URL(
+					"http://localhost:9090/CentroEducativo/alumnos/" + user + "?key=" + key).openConnection();
+		connection.setDoInput(true);
+		connection.setRequestMethod("GET");
+		connection.setRequestProperty("Accept", "*/*");
+		
+		for (String cookie : cookies) {
+			connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
+		}
+		
+		BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+		while ((auxiliar = buff.readLine()) != null) {
+			jsonString += auxiliar;
+		}
+		
+
+		    JSONObject jsonObject = new JSONObject(jsonString);
+		    String nombre = jsonObject.getString("nombre");
+		    String apellidos = jsonObject.getString("apellidos");
+		    String password = jsonObject.getString("password");
+		    String dni = jsonObject.getString("dni");
+
+		    alumno.setNombre(nombre);
+		    alumno.setApellidos(apellidos);
+		    alumno.setPass(password);
+		    alumno.setDni(dni);
+
+
+		return alumno;
+	}
+	
+	
 	private List<AsignaturasAlumn> getAsignAlumn(String dni, String key, List<String> cookies)
 			throws MalformedURLException, IOException {
 		String auxiliar = "";
@@ -171,6 +213,52 @@ public class login extends HttpServlet {
 
 
 		return asignatura;
+	}
+	
+	/*
+	 * Objeto Alumno
+	 */
+	public class Alumno {
+
+		private String apellidos;
+		private String dni;
+		private String nombre;
+		private String pass;
+
+		public Alumno() {
+		}
+
+		public String getNombre() {
+			return nombre;
+		}
+
+		public String getApellidos() {
+			return apellidos;
+		}
+		
+		public String getDni() {
+			return dni;
+		}
+
+		public String getPass() {
+			return pass;
+		}
+		
+		public void setNombre(String nombre) {
+			this.nombre = nombre;
+		}
+
+		public void setApellidos(String apellidos) {
+			this.apellidos = apellidos;
+		}
+		
+		public void setDni(String dni) {
+			this.dni = dni;
+		}
+
+		public void setPass(String pass) {
+			this.pass = pass;
+		}
 	}
 	
 	/*
