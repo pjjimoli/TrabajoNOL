@@ -98,7 +98,7 @@ public class login extends HttpServlet {
 				+ "<title>Alumno - Notas Online</title></head>\n");
 		response.getWriter()
 		.println("<body>\r\n"
-				+ "<form action=\"Logout\">\r\n"
+				+ "<form action=\"login\" method=\"get\">\r\n"
 				+ "              <input class=\"logout\" type=\"submit\" value=\"Cerrar Sesión\">\r\n"
 				+ "          </form>\r\n"
 				+ "          \r\n"
@@ -144,9 +144,8 @@ public class login extends HttpServlet {
 				+ "                        </div>\r\n");
 				for (int i = 1; i < asignas.size(); i++) {
 					Asignaturas asi = getInfoAsignatura(asignas.get(i).getNombre(), key, cookies);
-					response.getWriter().println("  <div class=\"card-body\">\r\n"
-					+ "                    <div class=\"tab-content\" id=\"myTabContent\">\r\n"
-					+ "                        <div class=\"tab-pane fade show active\" id=\"a"+i+"\" role=\"tabpanel\" aria-labelledby=\"a"+i+"-tab\">\r\n"
+					response.getWriter().println(
+					"                        <div class=\"tab-pane fade show active\" id=\"a"+i+"\" role=\"tabpanel\" aria-labelledby=\"a"+i+"-tab\">\r\n"
 					+ "                          <table>\r\n"
 					+ "                            <tr><th>Nombre</th><th>Nota</th><th>Curso</th><th>Cuatrimestre</th><th>Créditos</th></tr>\r\n"
 					+ "                            <tr><td>"+asi.getNombre()+"</td><td>"+asignas.get(i).getNota()+"</td><td>"+asi.getCurso()+"</td><td>"+asi.getCuatrimestre()+"</td><td>"+asi.getCreditos()+"</td></tr>\r\n"
