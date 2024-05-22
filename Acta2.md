@@ -559,9 +559,8 @@ Asistentes:
 Una vez ya tenemos la aplicación desarrollada con todos sus componentes definidos y con los pertinentes metodos para administrar los datos enviados y recibidos, solo nos queda acabar de tratar la información recibida para construir, de forma dinamica durante la ejecucion, la pagina de retorno de HTML.
 Para ello ...
 
-Sin embargo el resultado 
-
-   ![](https://github.com/pjjimoli/TrabajoNOL/blob/master/images/image1.png)
+Sin embargo el resultado
+![](https://github.com/pjjimoli/TrabajoNOL/blob/master/images/image.png)
 
 <h3>Puntos tratados:</h3>
  
