@@ -1,6 +1,6 @@
 <h1>TrabajoNOL - DEW - ACTA HITO 2 </h1>
 
-La máquina virtual prototipo con la que probamos el código es:
+La máquina virtual prototipo con la que probamos el código es del compañero PEDRO: dew-pjjimoli-2324.dsicv.upv.es
 
 <h2>ACTA REUNIÓN 1</h2>
 
@@ -657,6 +657,7 @@ Para ello creamos un metodo llamado htmlAlu que reciba los datos del alumno para
        }
 
 Sin embargo el resultado obtenido no era el esperado. Pues en cada inicio de sesión, donde en cada subventana de la pagina aparece el acrónimo de la asignatura, al darle deberiamos ver la información de la asignatura en concreto. Sin embargo, en la primera carga de esta pagina, aporta la información de todas la asignaturas. Esto al cambiar de pestaña "se arregla".
+
 
 ![](https://github.com/pjjimoli/TrabajoNOL/blob/master/images/image.png)
 
