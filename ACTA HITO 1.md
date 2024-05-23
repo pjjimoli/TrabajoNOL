@@ -82,8 +82,9 @@ Los compañeros evaluaron positivamente la presentación de Mari Carmen sobre co
 **Trull Martí, Andreu** presentó estrategias para evitar y resolver conflictos en grupos. Destacó comportamientos que generan tensiones y proporcionó trucos para evitar conflictos. Además, ofreció consejos para abordar los conflictos de manera efectiva, como permitir que cada miembro del grupo exponga su punto de vista y tomar tiempo suficiente para discutir el tema. 
 
 Los compañeros valoraron altamente la presentación de Andreu sobre gestión de conflictos como muy práctica y orientada a la acción. Destacaron su enfoque en la identificación de comportamientos que pueden desencadenar conflictos y las estrategias claras para evitarlos. La presentación fue considerada útil para comprender cómo abordar conflictos en un entorno grupal y promover una comunicación efectiva.
-
- 
+<br>
+<br>
+<br>
 **Puntos tratados:**
  
 1. Presentación del documento "Aspectos esenciales para el trabajo en equipo"
