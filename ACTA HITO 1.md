@@ -44,7 +44,45 @@ Se asignaron los temas por orden alfabético tal que:
     - Rea Mejia, Maria Carmen
     - Trull Martí, Andreu
   ---
- 
+
+**AGRUPACIÓN 1:**
+
+**Blauvac Brea, Adrián Pierre** inició la presentación enfocándose en la importancia de la comunicación efectiva dentro de los equipos. Además, destacó varias técnicas de comunicación, como la escucha activa y la retroalimentación constructiva.
+
+En general, los compañeros valoraron altamente la presentación de Adrián, destacando su claridad y relevancia práctica. Consideraron que las estrategias y recomendaciones ofrecidas serían esenciales para la dinámica y cohesión del grupo.
+
+**García Bartolomé, Javier** continuó la exposición centrándose en la definición y establecimiento de objetivos claros. También abordó la resolución de problemas, presentando varios métodos como el de los siete pasos, el PMI y el SWOT.
+
+Los compañeros apreciaron la presentación de Javier y valoraron muy bien cómo presentó los objetivos y cuáles podrían ser, también los métodos prácticos y estructurados para abordar los problemas en el grupo. Consideraron que la explicación detallada de diferentes enfoques permitió una comprensión clara.
+<br>
+<br>
+<br>
+**AGRUPACIÓN 2:**
+
+Jiménez Olivares, Pedro José y Moris Puig, Yvan colaboraron para exponer de forma conjunta  los temas de comunicación, objetivos y resolución de problemas.
+
+El primer tema en ser tratado fue "expectativas". **Moris Puig, Yvan** comenzó la presentación explicando la importancia de discutir las expectativas con tu grupo, y continuó comentando las expectativas que tus compañeros pueden tener de ti durante el transcurso del proyecto. Por último, describió diversos ejemplos sobre posibles reglas de actuación con el objetivo del correcto funcionamiento del grupo.
+
+Por su parte, **Jiménez Olivares, Pedro José** complementó de forma adecuada la información expuesta por Moris Puig, Yvan y procedió a elaborar tanto los comportamientos que facilitan el buen funcionamiento del grupo como los comportamientos que lo dificultan.
+
+El segundo tema en ser tratado ha sido "brainstorming". Esta vez **Jiménez Olivares, Pedro José** comenzó introduciendo el concepto de brainstorming y la importancia de este. En segundo lugar, explicó  en qué situaciones es bueno usar brainstorming y en qué situaciones  puede llegar a ser algo nocivo para el grupo. Por último, abordó algunos trucos para aumentar la eficacia del brainstorming.
+
+**Moris Puig, Yvan** finalizó la exposición  describiendo en detalles los pasos a realizar antes y durante el brainstorming.
+
+Los compañeros valoraron que ambos miembros realizaron sus presentaciones de forma clara y detallada. Supieron estructurar adecuadamente la información proporcionada y mantuvieron un tono de voz y una vocalización adecuadas para el entendimiento del tema a tratar. Los compañeros destacaron como ambos compañeros supieron complementarse mutuamente, resultando en una exposición más detallada y enriquecedora.
+<br>
+<br>
+<br>
+**AGRUPACIÓN 3:**
+
+**Rea Mejia, Maria Carmen** abrió la presentación hablando sobre los diferentes tipos de conflictos que pueden surgir en un entorno de trabajo. También discutió los efectos negativos de los conflictos no gestionados sobre la moral del equipo y la productividad.
+
+Los compañeros evaluaron positivamente la presentación de Mari Carmen sobre conflictos, destacando su comprensión del tema y la forma clara en que expuso los diferentes aspectos y estrategias para abordarlos. La presentación fue considerada informativa y útil para entender la naturaleza de los conflictos grupales. 
+
+**Trull Martí, Andreu** presentó estrategias para evitar y resolver conflictos en grupos. Destacó comportamientos que generan tensiones y proporcionó trucos para evitar conflictos. Además, ofreció consejos para abordar los conflictos de manera efectiva, como permitir que cada miembro del grupo exponga su punto de vista y tomar tiempo suficiente para discutir el tema. 
+
+Los compañeros valoraron altamente la presentación de Andreu sobre gestión de conflictos como muy práctica y orientada a la acción. Destacaron su enfoque en la identificación de comportamientos que pueden desencadenar conflictos y las estrategias claras para evitarlos. La presentación fue considerada útil para comprender cómo abordar conflictos en un entorno grupal y promover una comunicación efectiva.
+
  
 **Puntos tratados:**
  
