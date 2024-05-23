@@ -116,7 +116,33 @@ La próxima reunión se celebrará el 4/5/2024 a las 18:00.
 
 - **LogForm:** Se ha creado un documento HTML con un CSS interno. Este documento contiene hasta 6 formularios que requieren la misma información, un dni y una contraseña. Sin embargo, a la hora de rellenar y enviar, se escoge un formulario, este dependerá del Log y el metodo escogido. Es decir, existe un apartado por cada Log-Metodo, de manera que si quieres probar el formulario del Log1 metodo Post, rellenarías el dni y la contraseña de Log 1 POST.
  
-![IMAGEN LOGFORM](https://github.com/pjjimoli/TrabajoNOL/blob/master/images/imageLogs.png)
+	* LogForm.html vista:
+
+	![IMAGEN LOGFORM](https://github.com/pjjimoli/TrabajoNOL/blob/master/images/imageLogs.png)
+
+	* Para cada formulario se encuentra este codigo variando en el 'form' su 'action' y 'method': 
+
+			<form action="Log1" method="post">
+						<table>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td><label>DNI: </label></td>
+											<td><input type="text" required="required" name="dni" /> <br /></td>
+										</tr>
+										<tr>
+											<td><label>Contraseña: </label></td>
+											<td><input type="password" required="required" name="pass" />
+												<br /></td>
+											<td>
+										</tr>
+									</table>
+								</td>
+								<td><input type="submit" /></td>
+							</tr>
+						</table>
+					</form>
   
 - **Log0:** Se ha creado un servlet con su configuración predefinida, dentro de sus métodos doGet y doPost hemos hecho 4 variables:
 	* ”date”(LocalDateTime date = LocalDateTime.now()) para obtener la fecha actual.
