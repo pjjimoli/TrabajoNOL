@@ -113,7 +113,12 @@ La próxima reunión se celebrará el 4/5/2024 a las 18:00.
  
 **Desarrollo:**
 
-- **Log0:** Se ha creado un servlet con su configuración predefinida, dentro de sus métodos doGet y doPost hemos hecho 4 variables ”date”(LocalDateTime date = LocalDateTime.now()) para obtener la fecha actual, ”dni” (String dni = request.getParameter("dni")) para obtener el usuario de la casilla de formulario, ”pass” (String pass = request.getParameter("pass")) para obtener la contraseña de la casilla de formulario y ”uri” (String uri = request.getContextPath() + request.getServletPath() + request.getPathInfo() + request.getQueryString()) para obtener la uri. Por último creamos la respuesta de estos datos mediante otro html con el método response.getWriter().println().
+- **Log0:** Se ha creado un servlet con su configuración predefinida, dentro de sus métodos doGet y doPost hemos hecho 4 variables:
+	* ”date”(LocalDateTime date = LocalDateTime.now()) para obtener la fecha actual.
+ 	* ”dni” (String dni = request.getParameter("dni")) para obtener el usuario de la casilla de formulario.
+  	* ”pass” (String pass = request.getParameter("pass")) para obtener la contraseña de la casilla de formulario
+  	* ”uri” (String uri = request.getContextPath() + request.getServletPath() + request.getPathInfo() + request.getQueryString()) para obtener la uri.
+Por último creamos la respuesta de estos datos mediante otro html con el método response.getWriter().println().
 
 
 - **Log1:** Se ha creado un servlet con su configuración predefinida, la implementación es la misma que en Log0, pero añadiendo un objeto llamado File, que guardará la ruta para crear un archivo LogForm.txt para que salve la información del formulario en forma de archivo de texto. Tan solo hay que crear otro objeto FileWriter llamado log1Write que tenga como parámetros el objeto File log1. Ahora solo tenemos que llamar a log1Write y hacer uso del método write() para pasarle los parámetros que queramos escribir.
