@@ -90,10 +90,9 @@ No se requiere intervención del profesor en esta sesión.
  
 **Resumen:**
  
-Se ha creado el proyecto en Eclipse y se configuró un repositorio en GitHub para que podamos trabajar todos con el mismo repositorio remoto. Tras configurarlos todos en sus respectivas aplicaciones de Eclipse, se desarrolló un documento HTML, llamado LogForm.html, con los formularios Log0, Log1 y Log2 de manera que se tengan que ingresar los datos de dni y contraseña y dandole a un botón se envie el formulario. Sin embargo, para el envio de este formulario dependerá en que apartado lo hagas, es decir, existe un apartado por cada Log-Metodo. Asi se de manera que si quieres probar el formulario del Log1 metodo Post, rellenarías el dni y la contraseña de Log 1 POST.
+Se ha creado el proyecto en Eclipse y se configuró un repositorio en GitHub para que podamos trabajar todos con el mismo repositorio remoto. Tras configurarlos todos en sus respectivas aplicaciones de Eclipse, se desarrolló un documento HTML, llamado LogForm.html, con los formularios Log0, Log1 y Log2 de manera que se tengan que ingresar los datos de dni y contraseña y dandole a un botón se envie el formulario. 
 
- 
-![](https://github.com/pjjimoli/TrabajoNOL/blob/master/images/imageLogs.png)
+
  
 **Puntos tratados:**
  
@@ -115,6 +114,11 @@ La próxima reunión se celebrará el 4/5/2024 a las 18:00.
  
 **Desarrollo:**
 
+- **LogForm:** Se ha creado un documento HTML con un CSS interno. Este documento contiene hasta 6 formularios que requieren la misma información, un dni y una contraseña. Sin embargo, a la hora de rellenar y enviar, se escoge un formulario, este dependerá del Log y el metodo escogido. Es decir, existe un apartado por cada Log-Metodo, de manera que si quieres probar el formulario del Log1 metodo Post, rellenarías el dni y la contraseña de Log 1 POST.
+
+ 
+![](https://github.com/pjjimoli/TrabajoNOL/blob/master/images/imageLogs.png)
+  
 - **Log0:** Se ha creado un servlet con su configuración predefinida, dentro de sus métodos doGet y doPost hemos hecho 4 variables:
 	* ”date”(LocalDateTime date = LocalDateTime.now()) para obtener la fecha actual.
  	* ”dni” (String dni = request.getParameter("dni")) para obtener el usuario de la casilla de formulario.
