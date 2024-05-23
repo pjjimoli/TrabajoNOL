@@ -90,8 +90,10 @@ No se requiere intervención del profesor en esta sesión.
  
 **Resumen:**
  
-Se ha creado el proyecto en Eclipse y se configuró un repositorio en GitHub para que podamos trabajar todos con el mismo repositorio remoto. Tras configurarlos todos en sus respectivas aplicaciones de Eclipse, se desarrolló un documento HTML con los formularios Log0, Log1 y Log2 de manera que se tengan que ingresar los datos de dni y contraseña y dandole a un botón se envie el formulario.
+Se ha creado el proyecto en Eclipse y se configuró un repositorio en GitHub para que podamos trabajar todos con el mismo repositorio remoto. Tras configurarlos todos en sus respectivas aplicaciones de Eclipse, se desarrolló un documento HTML, llamado LogForm.html, con los formularios Log0, Log1 y Log2 de manera que se tengan que ingresar los datos de dni y contraseña y dandole a un botón se envie el formulario. Sin embargo, para el envio de este formulario dependerá en que apartado lo hagas, es decir, existe un apartado por cada Log-Metodo. Asi se de manera que si quieres probar el formulario del Log1 metodo Post, rellenarías el dni y la contraseña de Log 1 POST.
+
  
+![](https://github.com/pjjimoli/TrabajoNOL/blob/master/images/imageLogs.png)
  
 **Puntos tratados:**
  
@@ -126,7 +128,7 @@ Además, se ha agregado un try-catch para crear dicho archivo. Si la creación f
 
 - **Log2:** Se ha creado un servlet con su configuración predefinida, la implementación es la misma que en Log1, sin embargo, se ha configurado la ruta del archivo de registro a través de un parámetro en el archivo web.xml (File log1 = new File(getServletContext().getInitParameter("logFilePath"))) 
 Manteniendo todo lo demás igual.
- 
+
  
 **Intervención del Profesor:**
  
