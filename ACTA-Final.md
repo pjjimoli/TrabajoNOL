@@ -45,8 +45,8 @@ Además, el compañero Adrian desarrollo un croquis de la pagina para construir 
 5. Consultar o modificar la nota obtenida por uno de los alumnos en una de las asignaturas que imparte
     * Operación derivada: calcular la nota media de una de las asignaturas que imparte
        * Operación derivada AJAX: interacción ágil para consultar o modificar la nota obtenida de cada uno de los alumnos en una de las asignaturas que imparte. 
-o Debe cargar todos los datos en el navegador, facilitando el recorrido entre los alumnos y volcando las modificaciones (o todas las calificaciones) al servidor
-o Debe incluir la fotografía del alumno visualizado
+          - Debe cargar todos los datos en el navegador, facilitando el recorrido entre los alumnos y volcando las modificaciones (o todas las calificaciones) al servidor
+          - Debe incluir la fotografía del alumno visualizado
 6. Finalizar la sesión
 
 <h3>Asignación y calendario:</h3>   
