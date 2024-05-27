@@ -26,6 +26,7 @@ Se fijan los objetivos para la reunión, estos se basan en las Tareas a realizar
 El compañero Yvan resuelva una explicación breve de lo que consiste Jquery y AJAX para el mejor entendimiento y por herencia mejor desarrollo de la aplicación. Así posteriormente llevamos a cabo un pequeño "brainstorm" para implementar codigo AJAX en las paginas del profesor, como se pide en la tarea. 
 Además, el compañero Adrian desarrollo un croquis de la pagina para construir las ideas a llevar a cabo en esta.
 
+![](https://github.com/pjjimoli/TrabajoNOL/blob/master/images/croquis.png)
 
 
 <h3>Puntos tratados:</h3>  
