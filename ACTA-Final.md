@@ -23,20 +23,30 @@ Asistentes:
 <h3>Desarrollo:</h3>
  
 Se fijan los objetivos para la reunión, estos se basan en las Tareas a realizar en la entrega final. 
+El compañero Yvan resuelva una explicación breve de lo que consiste Jquery y AJAX para el mejor entendimiento y por herencia mejor desarrollo de la aplicación. Así posteriormente llevamos a cabo un pequeño "brainstorm" para implementar codigo AJAX en las paginas del profesor, como se pide en la tarea. 
+Además, el compañero Adrian desarrollo un croquis de la pagina para construir las ideas a llevar a cabo en esta.
+
 
 
 <h3>Puntos tratados:</h3>  
  
-* Realización y fijación de nuevas tareas y objetivos del hito 2
-* Punto 1: Pag de entrada y enlace a la operación 
-* Construccion pagina HTML de Alumno
+* Realización y definición de nuevas tareas y objetivos de la entrega Final
+* Expliación de Jquery y AJAX
+  
 
 
 <h3>Resumen de Nuevas Tareas:</h3>  
  
-1. Realizar ambiente(permisos y operaciones) para rol profesor
-2. Definir operación AJAX en aplicacion web
-3. 
+1. Añadir a alumno 
+2. Inicio de sesio para rol profesor
+3. Consultar la lista de asignaturas12 que imparte. Se necesitará recorrer todas lasasignaturas y anotar aquéllas en las que este profesor aparezca.
+4. Consultar la lista de alumnos en una de las asignaturas que imparte
+5. Consultar o modificar la nota obtenida por uno de los alumnos en una de las asignaturas que imparte
+    * Operación derivada: calcular la nota media de una de las asignaturas que imparte
+       ** Operación derivada AJAX: interacción ágil para consultar o modificar la nota obtenida de cada uno de los alumnos en una de las asignaturas que imparte. 
+o Debe cargar todos los datos en el navegador, facilitando el recorrido entre los alumnos y volcando las modificaciones (o todas las calificaciones) al servidor
+o Debe incluir la fotografía del alumno visualizado
+6. Finalizar la sesión
 
 <h3>Asignación y calendario:</h3>   
 
