@@ -6,7 +6,7 @@ La máquina virtual prototipo con la que probamos el código es del compañero P
 
 
 Fecha: 27/5/2024  
-Horario: 20:20  - 
+Horario: 20:20  - 22:00
 Tipo de Reunión: Videoconferencia Discord   
 Grupo: L1-3TI21
 Asistentes: 
@@ -44,7 +44,7 @@ Además, el compañero Adrian desarrollo un croquis de la pagina para construir 
 4. Consultar la lista de alumnos en una de las asignaturas que imparte
 5. Consultar o modificar la nota obtenida por uno de los alumnos en una de las asignaturas que imparte
     * Operación derivada: calcular la nota media de una de las asignaturas que imparte
-       ** Operación derivada AJAX: interacción ágil para consultar o modificar la nota obtenida de cada uno de los alumnos en una de las asignaturas que imparte. 
+       * Operación derivada AJAX: interacción ágil para consultar o modificar la nota obtenida de cada uno de los alumnos en una de las asignaturas que imparte. 
 o Debe cargar todos los datos en el navegador, facilitando el recorrido entre los alumnos y volcando las modificaciones (o todas las calificaciones) al servidor
 o Debe incluir la fotografía del alumno visualizado
 6. Finalizar la sesión
