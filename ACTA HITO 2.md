@@ -295,7 +295,7 @@ Primero tenemos que recibir y relacionar las asignaturas del alumno pertinente e
 
 
 
-   * Se conecta con un URL especifico de la base de datos para enviar las asignaturas del alumno...
+   * Se conecta con un URL especifico de la base de datos para enviar las credenciales y recibir las asignaturas del alumno...
                
                 new URL("http://localhost:9090/CentroEducativo/alumnos/" + dni + "/asignaturas?key=" + key).openConnection();
      
@@ -304,9 +304,11 @@ Primero tenemos que recibir y relacionar las asignaturas del alumno pertinente e
                List<AsignaturasAlumn> asignaturas = new ArrayList<>();
                
                for (int i = 0; i < jsonArray.length(); i++) {
+      
                    JSONObject jsonObject = jsonArray.getJSONObject(i);
                    String nombre = jsonObject.getString("asignatura");
                    String nota = jsonObject.getString("nota");
+     
                    AsignaturasAlumn asignatura = new AsignaturasAlumn();
                    asignatura.setNombre(nombre);
                    asignatura.setNota(nota);
@@ -329,16 +331,20 @@ Primero tenemos que recibir y relacionar las asignaturas del alumno pertinente e
           }
 
 
-Segundo tenemos que manejar la inf
+Segundo tenemos que manejar la información de las asignaturas
         
-        private Asignaturas getInfoAsignatura(String acronimo, String key, List<String> cookies)
-                        throws MalformedURLException, IOException {
-                HttpURLConnection connection = (HttpURLConnection) new URL(
-                                "http://localhost:9090/CentroEducativo/asignaturas/" + acronimo + "?key=" + key).openConnection();
-                
-                String auxiliar = "";
-                String jsonString = "";
+        private Asignaturas getInfoAsignatura(String acronimo, String key, List<String> cookies) throws MalformedURLException, IOException {
+            String auxiliar = "";
+            String jsonString = "";
             Asignaturas asignatura = new Asignaturas();
+            ...
+
+
+   * Nos conectamos a la base de datos para obtener la asignatura...
+     
+                                "http://localhost:9090/CentroEducativo/asignaturas/" + acronimo + "?key=" + key).openConnection();
+
+   * Recibimos los datos de la asignatura en JSON y se lo declaramos a esta...
 
                     JSONObject jsonObject = new JSONObject(jsonString);
                     String acronimos = jsonObject.getString("acronimo");
@@ -346,32 +352,24 @@ Segundo tenemos que manejar la inf
                     String cuatrimestre = jsonObject.getString("cuatrimestre");
                     String nombre = jsonObject.getString("nombre");
                     int curso = jsonObject.getInt("curso");
-                    asignatura.setAcronimo(acronimos);
-                    asignatura.setCreditos(creditos);
-                    asignatura.setCuatrimestre(cuatrimestre);
-                    asignatura.setNombre(nombre);
-                    asignatura.setCurso(curso);
+     
+                    asignatura."setDato(dato)";
+     
                 return asignatura;
-        }
+
+
+
+   * Para organizar esta información construimos un objeto Asignaturas a tratar en getInfoAsignatura()
+
+         public class Asignaturas {
+                 private String acronimo;
+                 private int creditos;
+                 private String cuatrimestre;
+                 private String nombre;
+                 private int curso;
  
-
-
-Aquí no solamente definimos nuevos métodos para tratar la información, más bien creamos objetos de tipo AsignaturasAlum y Asignaturas con sus pertinentes get();set(); para sus atributos. 
-
-
-
-
-Objeto Asignaturas a tratar en getInfoAsignatura()
-
-        public class Asignaturas {
-                private String acronimo;
-                private int creditos;
-                private String cuatrimestre;
-                private String nombre;
-                private int curso;
-
-                 y sus get();set();
-        }
+                  y sus get();set();
+         }
 
 
 
@@ -435,104 +433,31 @@ Una vez ya tenemos la aplicación desarrollada con todos sus componentes definid
 Para ello creamos un metodo llamado htmlAlu que reciba los datos del alumno para construir una pagina donde podra acceder a dicha información sobre sus asignaturas.
 
        private void htmlAlu(HttpServletResponse response,String dni, String key, List<String> cookies) throws MalformedURLException, IOException{
-       List<AsignaturasAlumn> asignas = getAsignAlumn(dni, key, cookies);
-       response.setContentType("text/html");
-       response.getWriter()
-       .println("<!DOCTYPE html>\n<html>\n<head>\n"
-       + "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />\n"
-       + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
-       + "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\">\n"
-       + "<link href=estilo.css rel=\"stylesheet\">\n"
-       + "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\n"
-       + "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js\"></script>"
-       + "<title>Alumno - Notas Online</title></head>\n");
-       response.getWriter()
-       .println("<body>\r\n"
-       + "<form action=\"login\" method=\"get\">\r\n"
-       + "              <input class=\"logout\" type=\"submit\" value=\"Cerrar Sesión\">\r\n"
-       + "          </form>\r\n"
-       + "          \r\n"
-       + "<main class=\"container-fluid\">\r\n"
-       + "<div class=\"p-4 p-md-5 mb-4 main\">\r\n"
-       + "<div class=\"mx-auto p-1 center\">\r\n"
-       + "\r\n"
-       + "\r\n"
-       + "\r\n"
-       + "<h1 class=\"display-4 fw-bold\">NOTAS ONLINE</h1>\r\n"
-       + "<p class=\"lead my-1\">"+ getAlu(dni, key, cookies).getNombre() +" "+ getAlu(dni, key, cookies).getApellidos()+ "</p>\r\n"
-       + "<p class=\"lead my-3\">Aquí se muestran las asignaturas en las que\r\n"
-       + "estás matriculado junto a sus notas</p>\r\n"
-       + "</div>\r\n"
-       + "</div>\r\n"
-       + "<div class=\"row g-5\">\r\n"
-       + "<div class=\"col-md-8\">\r\n"
-       + "\r\n"
-       + "<div class=\"card text-center tabs\">\r\n"
-       + "    <div class=\"card-header \">\r\n"
-       + "    <ul class=\"nav nav-tabs card-header-tabs \">\r\n");
-       response.getWriter()
-       .println("<li class=\"nav-item \">\r\n"
-       + "        <a class=\"nav-link active unselected-tab\" id=\"a1-tab\" data-toggle=\"tab\" href=\"#a1\" role=\"tab\" aria-controls=\"a1\" aria-selected=\"true\">" + asignas.get(0).getNombre() + "</a>\r\n"
-       + "      </li>\r\n");
-       for (int i = 1; i < asignas.size(); i++) {
-       response.getWriter().println("<li class=\"nav-item\">\r\n"
-       + "        <a class=\"nav-link unselected-tab\" id=\"a " + (i+1) + "-tab\" data-toggle=\"tab\" href=\"#a"+ (i+1) +"\" role=\"tab\" aria-controls=\"a"+ (i+1) +"\" aria-selected=\"false\">"+asignas.get(i).getNombre()+"</a>\r\n"
-       + "      </li>\r\n");
-       }
-       Asignaturas primera = getInfoAsignatura(asignas.get(0).getNombre(), key, cookies);
-       response.getWriter().println("    </ul>\r\n"
-       + "  </div>\r\n"
-       + "  \r\n"
-       + "  \r\n"
-       + "  <div class=\"card-body\">\r\n"
-       + "                    <div class=\"tab-content\" id=\"myTabContent\">\r\n"
-       + "                        <div class=\"tab-pane fade show active\" id=\"a1\" role=\"tabpanel\" aria-labelledby=\"a1-tab\">\r\n"
-       + "                          <table>\r\n"
-       + "                            <tr><th>Nombre</th><th>Nota</th><th>Curso</th><th>Cuatrimestre</th><th>Créditos</th></tr>\r\n"
-       + "                            <tr><td>"+primera.getNombre()+"</td><td>"+asignas.get(0).getNota()+"</td><td>"+primera.getCurso()+"</td><td>"+primera.getCuatrimestre()+"</td><td>"+primera.getCreditos()+"</td></tr>\r\n"
-       + "                        </table>\r\n"
-       + "                        </div>\r\n");
-       
-        for (int i = 1; i < asignas.size(); i++) {
-        
-       Asignaturas asi = getInfoAsignatura(asignas.get(i).getNombre(), key, cookies);
-       response.getWriter().println(
-       "                        <div class=\"tab-pane fade show active\" id=\"a"+(i+1)+"\" role=\"tabpanel\" aria-labelledby=\"a"+(i+1)+"-tab\">\r\n"
-       + "                          <table>\r\n"
-       + "                            <tr><th>Nombre</th><th>Nota</th><th>Curso</th><th>Cuatrimestre</th><th>Créditos</th></tr>\r\n"
-       + "                            <tr><td>"+asi.getNombre()+"</td><td>"+asignas.get(i).getNota()+"</td><td>"+asi.getCurso()+"</td><td>"+asi.getCuatrimestre()+"</td><td>"+asi.getCreditos()+"</td></tr>\r\n"
-       + "                        </table>\r\n"
-       + "                        </div>\r\n");
-       }
-       
-       response.getWriter().println( "                    </div>\r\n"
-       + "                </div>\r\n"
-       + "  \r\n"
-       + "  \r\n"
-       + "</div>\r\n"
-       + "\r\n"
-       + "</div>\r\n"
-       + "<div class=\"col-md-4\">\r\n"
-       + "<div class=\"p-4 mb-3 grupo\">\r\n"
-       + "<h4 class=\"center\">GRUPO 3TI21_G2</h4>\r\n"
-       + "<ul>\r\n"
-       + "<li>Blauvac Brea, Adrián Pierre</li>\r\n"
-       + "<li>García Bartolomé, Javier</li>\r\n"
-       + "<li>Jiménez Olivares, Pedro José</li>\r\n"
-       + "<li>Moris Puig, Yvan</li>\r\n"
-       + "<li>Rea Mejia, Maria Carmen</li>\r\n"
-       + "<li>Trull Martí, Andreu</li>\r\n"
-       + "</ul>\r\n"
-       + "</div>\r\n"
-       + "</div>\r\n"
-       + "</div>\r\n"
-       + "</main>\r\n"
-       + "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz\" crossorigin=\"anonymous\"></script>\r\n"
-       + "</body>\r\n"
-       + "\r\n"
-       + "\r\n"
-       + "</html>");
-       }
+
+  * Conseguimos las asignaturas del alumno...
+           
+           List<AsignaturasAlumn> asignas = getAsignAlumn(dni, key, cookies);
+
+  * Y se procede a construir la pagina HTML de respuesta,que debe administrar los objetos instanciados con anterioridad...       
+           
+           
+           ...
+           
+           //(i=0) 
+           Asignaturas primera = getInfoAsignatura(asignas.get(0).getNombre(), key, cookies);
+
+           MISMO CODIGO QUE EN FOR-POSTERIOR
+           
+           for (int i = 1; i < asignas.size(); i++) {
+            
+               Asignaturas asi = getInfoAsignatura(asignas.get(i).getNombre(), key, cookies);
+               response.getWriter().println(
+               ...
+               + "     <table>\r\n"
+               + "    <tr><th>Nombre</th><th>Nota</th><th>Curso</th><th>Cuatrimestre</th><th>Créditos</th></tr>\r\n"
+               + "    <tr><td>"+asi.getNombre()+"</td><td>"+asignas.get(i).getNota()+"</td><td>"+asi.getCurso()+"</td><td>"+asi.getCuatrimestre()+"</td><td>"+asi.getCreditos()+"</td></tr>\r\n"
+    
+             ...
 
 Sin embargo el resultado obtenido no era el esperado. Pues en cada inicio de sesión, donde en cada subventana de la pagina aparece el acrónimo de la asignatura, al darle deberiamos ver la información de la asignatura en concreto. Sin embargo, en la primera carga de esta pagina, aporta la información de todas la asignaturas. Esto al cambiar de pestaña "se arregla".
 
