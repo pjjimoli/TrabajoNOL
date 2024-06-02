@@ -36,72 +36,38 @@ Durante esta reunión creamos:
       </body>
 
 
-* index.html,que el compañero Adrian se ofreció a desarrollarla usando la librería bootstrap en CSS:
+* index.html,que el compañero Adrian se ofreció a desarrollarla usando la librería bootstrap en CSS, version de librería /bootstrap@5.3.3.
+   - Se importo la fuente 'Monserrat'...
+  
+            @import  url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap') ;
 
-      <html lang="es-es">
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-          <title>Notas Online</title>
-          <style>
-            @import
-                    url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
-                    ;
+   - Para el cual se definieron distintas clases ademas del body...
+  
             .main {
                     background-color: #0a4f6b;
                     color: #F8F5DF;
                     border-radius: 25px;
                     margin-top: 30px;
             }
-            .grupo {
-                    background-color: #F8F5DF;
-                    color: #74664B;
-                    border-radius: 25px;
-            }
-            body {
-                    font-family: montserrat;
-                    color: #F8F5DF;
-                    background-color: #012E40;
-            }
-            .center {
-                    text-align: center;
-            }
-            .login {
-                    background-color: #F8F5DF;
-                    color: #74664B;
-                    border-radius: 25px;
-            }
-          </style>
-        </head>
-        <body>
-          <main class="container-fluid">
-                  <div class="p-4 p-md-5 mb-4 main">
-                          <div class="mx-auto p-2 center">
-                                  <h1 class="display-4 fw-bold">NOTAS ONLINE</h1>
-                                  <p class="lead my-3">Bienvenid@, aquí podrás comprobar tus notas
-                                          si eres un alumno o gestionar a tus alumnos si eres un profesor</p>
-                          </div>
-                  </div>
-                  <div class="row g-5">
-                          <div class="col-md-8 p-4 mb-4 ">
-                                  <article class="blog-post login">
-                                          <h2>Si eres un alumn@...</h2>
-                                          <p>
-                                                  Podrás <a href="login.html">consultar</a> tus calificaciones...
-                                                  Debes contar con tus datos identificativos para acceder.
-                                          </p>
-                                          <h2>Si eres un profesor@...</h2>
-                                          <p>
-                                                  Podrás <a href="login.html">consultar o modificar</a> las calificaciones en tus asignaturas... Debes contar con tus datos identificativos para acceder.
-                                          </p>
-                                  </article>
-                          </div>
-                  </div>
-          </main>
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-</html>
+            .grupo { ... }
+            .center { ... }
+            .login { ...  }
+            body { ... }
+
+    - Además de dos apartados en distintos &lt;div&gt; anidados, para llevar a cabo el inicio de sesión según seas profesor o alumno...
+
+            <article class="blog-post login">
+                    <h2>Si eres un alumn@...</h2>
+                    <p>
+                            Podrás <a href="login.html">consultar</a> tus calificaciones...
+                            Debes contar con tus datos identificativos para acceder.
+                    </p>
+                    <h2>Si eres un profesor@...</h2>
+                    <p>
+                            Podrás <a href="login.html">consultar o modificar</a> las calificaciones en tus asignaturas... Debes contar con tus datos identificativos para acceder.
+                    </p>
+            </article>
+       
 
 <h3>Puntos tratados:</h3>  
  
@@ -155,52 +121,45 @@ Asistentes:
 En esta reunión llevamos a cabo la construcción del Servlet que se encarga de el método Post que realiza el formulario de la página Login.html. 
 
 
-* el servlet login.java,que al “postear” la información de login, en formato JSON, en el servidor que en su respuesta nos envía un token key que usaremos para mantener sesión: 
+* el servlet login.java,que al “postear” la información de login, en formato JSON, en el servidor que en su respuesta nos envía un token key que usaremos para mantener sesión...
 
       protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-              // TODO Auto-generated method stub
-              //doGet(request, response);
+
               String dni = request.getParameter("dni");
               String pass = request.getParameter("pass");
               String key = "";
-              List<String> cookies = new ArrayList<>();
-         
-              HttpSession session = request.getSession(true);
-              session.setMaxInactiveInterval(1000);
-              response.setContentType("text/html");
+  
+              ...
+
+     * Se conecta a la base de datos...
+
               URL CentroEducativo = new URL("http://localhost:9090/CentroEducativo/login");
               HttpURLConnection connection = (HttpURLConnection) CentroEducativo.openConnection();
-              connection.setDoInput(true);
-              connection.setDoOutput(true);
-              connection.setRequestMethod("POST");
-              connection.setRequestProperty("Accept", "*/*");
-              connection.setRequestProperty("content-Type", "application/json");
+       
+     * Construimos el envio del POST...
+
               try (Writer w = new OutputStreamWriter(connection.getOutputStream(), "UTF-8")) {
                       w.write("{\"dni\": " + "\"" + dni + "\",\n\"password\": " + "\"" + pass + "\"}");
               }
+  
+              
+ 
+     * Esperamos respuesta (si envio es correcto)...
+
               if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                   cookies = connection.getHeaderFields().get("Set-Cookie");
+  
                   try (Scanner scanner = new Scanner(connection.getInputStream(), "UTF-8")) {
                       String responseLine;
                       while (scanner.hasNextLine()) {
+  
                           responseLine = scanner.nextLine();
                           key += responseLine; // Concatenamos cada línea a la cadena key
-                      }
                   }
-                 
               }
-              response.setContentType("text/html");
-              response.getWriter()
-                              .println("<!DOCTYPE html>\n<html>\n<head>\n"
-                                              + "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"
-                                              + "<title>Información Log1</title></head><body>");
-              response.getWriter().println("<h1>Información</h1>");
-              response.getWriter().println(key);
-      }
 
-
-De este último código la complicación surgió de cómo actuar con esta key(string).  Pues es necesaria para hacer consultas a la base de datos. 
-
+       De este último código la complicación surgió de cómo actuar con esta key(string).  Pues es necesaria para hacer consultas a la base de datos. 
+  Posteriormente se desarrolla el código HTML de la pagina de respuesta
 
     
  
@@ -266,72 +225,48 @@ Asistentes:
 Usamos la key que devuelve el login para hacer llamadas al CentroEducativo para solicitar la información necesaria para la construcción de la Página web.
 Además, el compañero Adrian separa el CSS de index.html para introducirlo en un nuevo archivo estilo.css que servirá para definir el estilo de otras páginas html.
 Para iniciar sesión enviamos el email y la password en formato JSON al servidor para recibir una key, así con esa key hacemos llamadas a la BBDD
-Para construir el Servlet ‘login.java’ tuvimos que importar librerías:
+Para construir el Servlet ‘login.java’ tuvimos que importar distintas librerías:
 
-    import java.io.IOException;
-    import java.io.InputStreamReader;
-    import java.io.OutputStreamWriter;
-    import java.io.Writer;
-    import java.net.HttpURLConnection;
-    import java.net.MalformedURLException;
-    import java.net.URL;
-    import java.util.List;
-    import java.util.ArrayList;
+    import java.io. ...
+                   IOException;
+                   InputStreamReader;
+                   OutputStreamWriter;
+                   Writer;
+    import java.net. ...
+                   HttpURLConnection;
+                   MalformedURLException;
+                   URL;
+    import java.util. ...
+                   List;
+                   ArrayList;
+                   Scanner;
     import java.io.BufferedReader;
-    import javax.servlet.ServletException;
-    import javax.servlet.annotation.WebServlet;
-    import javax.servlet.http.HttpServlet;
-    import javax.servlet.http.HttpServletRequest;
-    import javax.servlet.http.HttpServletResponse;
-    import javax.servlet.http.HttpSession;
+    import javax.servlet. ...
+                   ServletException;
+                   annotation.WebServlet;
+                   http. ...
+                        HttpServlet;
+                        HttpServletRequest;
+                        HttpServletResponse;
+                        HttpSession;
     import org.json.*;
-    import java.util.Scanner;
 
 
 Durante el desarrollo nos dimos cuenta de que el doGet() no contenía nada pues habíamos comentado las líneas predeterminadas del método. Lo aprovechamos de manera para que doGet() sea llamado por el botón de cierre de sesión, gracias a este código acabamos la sesión actual mediante invalidate(), acto después te redirige de nuevo a index. 
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-                    // TODO Auto-generated method stub
-                    //response.getWriter().append("Served at: ").append(request.getContextPath());
                     request.getSession().invalidate();
                     response.sendRedirect("index.html");
             }
  
-A continuación, seguimos con el método doPost() que en adición a lo que ya contenía de la reunión anterior empezamos a trabajar
-
+A continuación, seguimos con el método doPost() que en adición a lo que ya contenía de la reunión anterior empezamos a trabajar. 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-                    // TODO Auto-generated method stub
-                    //doGet(request, response);
-                    String dni = request.getParameter("dni");
-                    String pass = request.getParameter("pass");
-                    String key = "";
-                    List<String> cookies = new ArrayList<>();
-                    HttpSession session = request.getSession(true);
-                    session.setMaxInactiveInterval(1000);
-                    response.setContentType("text/html");
-                    URL CentroEducativo = new URL("http://localhost:9090/CentroEducativo/login");
-                    HttpURLConnection connection = (HttpURLConnection) CentroEducativo.openConnection();
-                    connection.setDoInput(true);
-                    connection.setDoOutput(true);
-                    connection.setRequestMethod("POST");
-                    connection.setRequestProperty("Accept", "*/*");
-                    connection.setRequestProperty("content-Type", "application/json");
-                    try (Writer w = new OutputStreamWriter(connection.getOutputStream(), "UTF-8")) {
-                            w.write("{\"dni\": " + "\"" + dni + "\",\n\"password\": " + "\"" + pass + "\"}");
-                    }
-                    if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                        cookies = connection.getHeaderFields().get("Set-Cookie");
-                        try (Scanner scanner = new Scanner(connection.getInputStream(), "UTF-8")) {
-                            String responseLine;
-                            while (scanner.hasNextLine()) {
-                                responseLine = scanner.nextLine();
-                                key += responseLine; // Concatenamos cada línea a la cadena key
-                            }
-                        }
-                       
-                    }
+                    ...
+
+* Para construir la pagina HTML de respuesta...
+                           
                     response.setContentType("text/html");
                     response.getWriter()
                                     .println("<!DOCTYPE html>\n<html>\n<head>\n"
@@ -345,50 +280,56 @@ Le mostramos al usuario las Asignaturas y sus datos.
 
 
                 response.getWriter().println("<p>lista de asig:" + getAsignAlumn(dni, key, cookies).get(1).getNombre()  + "datos asignatura:" + getInfoAsignatura("DEW", key, cookies).getNombre() + "</p>");
-        }
+       
 
 
-Pero para tratar de esta formas los datos hay que familiarizar el ambiente con la data a tratar. Y así, desarrollamos nuevos métodos para conseguir las asignaturas  relacionadas a un alumno, y su información pertinente. 
+Pero para tratar de esta formas los datos hay que familiarizar el ambiente con la data a tratar. Y así, desarrollamos nuevos métodos para conseguir las asignaturas relacionadas a un alumno, y su información pertinente. 
 
 
-        private List<AsignaturasAlumn> getAsignAlumn(String dni, String key, List<String> cookies)
-                        throws MalformedURLException, IOException {
-                String auxiliar = "";
-                String jsonString = "";
-                
-                HttpURLConnection connection = (HttpURLConnection) new URL(
-                                "http://localhost:9090/CentroEducativo/alumnos/" + dni + "/asignaturas?key=" + key).openConnection();
-                connection.setDoInput(true);
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Accept", "*/*");
-                for (String cookie : cookies) {
-                        connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
-                }
-                
-                BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                while ((auxiliar = buff.readLine()) != null) {
-                        jsonString += auxiliar;
-                }
-                
-                JSONArray jsonArray = new JSONArray(jsonString);
-                List<AsignaturasAlumn> asignaturas = new ArrayList<>();
-                
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String nombre = jsonObject.getString("asignatura");
-                    String nota = jsonObject.getString("nota");
-                    AsignaturasAlumn asignatura = new AsignaturasAlumn();
-                    asignatura.setNombre(nombre);
-                    asignatura.setNota(nota);
-                    asignaturas.add(asignatura);
-                }
-                
-                return asignaturas;
-        }
+Primero tenemos que recibir y relacionar las asignaturas del alumno pertinente en nuestra aplicación web...
+
+       private List<AsignaturasAlumn> getAsignAlumn(String dni, String key, List<String> cookies) throws MalformedURLException, IOException {
+               String auxiliar = "";
+               String jsonString = "";
+               ...
 
 
 
+   * Se conecta con un URL especifico de la base de datos para enviar las asignaturas del alumno...
+               
+                new URL("http://localhost:9090/CentroEducativo/alumnos/" + dni + "/asignaturas?key=" + key).openConnection();
+     
+   * Tras declarar el buffer con las asignaturas del alumno que recibimos, instanciar las con su información...
 
+               List<AsignaturasAlumn> asignaturas = new ArrayList<>();
+               
+               for (int i = 0; i < jsonArray.length(); i++) {
+                   JSONObject jsonObject = jsonArray.getJSONObject(i);
+                   String nombre = jsonObject.getString("asignatura");
+                   String nota = jsonObject.getString("nota");
+                   AsignaturasAlumn asignatura = new AsignaturasAlumn();
+                   asignatura.setNombre(nombre);
+                   asignatura.setNota(nota);
+                   asignaturas.add(asignatura);
+               }
+               
+               return asignaturas;}
+       
+
+   * Para organizar esta información construimos un objeto AsignaturasAlumn a tratar en getAsignAlumn()...
+
+         public class AsignaturasAlumn {
+     
+                  private String asignatura;
+                  y sus get();set();
+     
+                  private String nota;
+                  y sus get();set();
+     
+          }
+
+
+Segundo tenemos que manejar la inf
         
         private Asignaturas getInfoAsignatura(String acronimo, String key, List<String> cookies)
                         throws MalformedURLException, IOException {
@@ -398,19 +339,7 @@ Pero para tratar de esta formas los datos hay que familiarizar el ambiente con l
                 String auxiliar = "";
                 String jsonString = "";
             Asignaturas asignatura = new Asignaturas();
-                
-                connection.setDoInput(true);
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Accept", "*/*");
-                for (String cookie : cookies) {
-                        connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
-                }
-                
-                BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                while ((auxiliar = buff.readLine()) != null) {
-                        jsonString += auxiliar;
-                }
-                
+
                     JSONObject jsonObject = new JSONObject(jsonString);
                     String acronimos = jsonObject.getString("acronimo");
                     int creditos = jsonObject.getInt("creditos");
@@ -430,26 +359,6 @@ Pero para tratar de esta formas los datos hay que familiarizar el ambiente con l
 Aquí no solamente definimos nuevos métodos para tratar la información, más bien creamos objetos de tipo AsignaturasAlum y Asignaturas con sus pertinentes get();set(); para sus atributos. 
 
 
-Objeto AsignaturasAlumn a tratar en getAsignAlumn()
-
-          public class AsignaturasAlumn {
-                  private String asignatura;
-                  private String nota;
-                  public AsignaturasAlumn() {
-                  }
-                  public String getNombre() {
-                          return asignatura;
-                  }
-                  public String getNota() {
-                          return nota;
-                  }
-                  public void setNombre(String asignatura) {
-                          this.asignatura = asignatura;
-                  }
-                  public void setNota(String nota) {
-                          this.nota = nota;
-                  }
-          }
 
 
 Objeto Asignaturas a tratar en getInfoAsignatura()
@@ -460,39 +369,8 @@ Objeto Asignaturas a tratar en getInfoAsignatura()
                 private String cuatrimestre;
                 private String nombre;
                 private int curso;
-                public Asignaturas() {
-                }
-                public String getAcronimo() {
-                        return acronimo;
-                }
-                public int getCreditos() {
-                        return creditos;
-                }
-                public String getCuatrimestre() {
-                        return cuatrimestre;
-                }
-                public String getNombre() {
-                        return nombre;
-                }
-                public int getCurso() {
-                        return curso;
-                }
-                
-                public void setAcronimo(String acronimo) {
-                        this.acronimo = acronimo;
-                }
-                public void setCreditos(int creditos) {
-                        this.creditos = creditos;
-                }
-                public void setCuatrimestre(String cuatrimestre) {
-                        this.cuatrimestre = cuatrimestre;
-                }
-                public void setNombre(String nombre) {
-                        this.nombre = nombre;
-                }
-                public void setCurso(int curso) {
-                        this.curso = curso;
-                }
+
+                 y sus get();set();
         }
 
 
