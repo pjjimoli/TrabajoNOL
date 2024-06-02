@@ -267,12 +267,12 @@ A continuación, seguimos con el método doPost() que en adición a lo que ya co
 
 * Para construir la pagina HTML de respuesta...
                            
-                    response.setContentType("text/html");
-                    response.getWriter()
-                                    .println("<!DOCTYPE html>\n<html>\n<head>\n"
-                                                    + "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"
-                                                    + "<title>Información Log1</title></head><body>");
-                    response.getWriter().println("<h1>Información</h1>");
+                response.setContentType("text/html");
+                response.getWriter()
+                                .println("<!DOCTYPE html>\n<html>\n<head>\n"
+                                                + "<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />"
+                                                + "<title>Información Log1</title></head><body>");
+                response.getWriter().println("<h1>Información</h1>");
 
 
 A partir de aquí empezamos a trabajar en esta reunión. Donde definimos y tratamos la información recibida del servidor. A su vez incorporamos nuevos métodos para el tratamiento de esta información.
@@ -297,7 +297,7 @@ Primero tenemos que recibir y relacionar las asignaturas del alumno pertinente e
 
    * Se conecta con un URL especifico de la base de datos para enviar las credenciales y recibir las asignaturas del alumno...
                
-                new URL("http://localhost:9090/CentroEducativo/alumnos/" + dni + "/asignaturas?key=" + key).openConnection();
+                 new URL("http://localhost:9090/CentroEducativo/alumnos/" + dni + "/asignaturas?key=" + key).openConnection();
      
    * Tras declarar el buffer con las asignaturas del alumno que recibimos, instanciar las con su información...
 
@@ -334,10 +334,10 @@ Primero tenemos que recibir y relacionar las asignaturas del alumno pertinente e
 Segundo tenemos que manejar la información de las asignaturas
         
         private Asignaturas getInfoAsignatura(String acronimo, String key, List<String> cookies) throws MalformedURLException, IOException {
-            String auxiliar = "";
-            String jsonString = "";
-            Asignaturas asignatura = new Asignaturas();
-            ...
+                  String auxiliar = "";
+                  String jsonString = "";
+                  Asignaturas asignatura = new Asignaturas();
+                  ...
 
 
    * Nos conectamos a la base de datos para obtener la asignatura...
@@ -345,15 +345,15 @@ Segundo tenemos que manejar la información de las asignaturas
                                 "http://localhost:9090/CentroEducativo/asignaturas/" + acronimo + "?key=" + key).openConnection();
 
    * Recibimos los datos de la asignatura en JSON y se lo declaramos a esta...
-
-                    JSONObject jsonObject = new JSONObject(jsonString);
-                    String acronimos = jsonObject.getString("acronimo");
-                    int creditos = jsonObject.getInt("creditos");
-                    String cuatrimestre = jsonObject.getString("cuatrimestre");
-                    String nombre = jsonObject.getString("nombre");
-                    int curso = jsonObject.getInt("curso");
-     
-                    asignatura."setDato(dato)";
+ 
+                 JSONObject jsonObject = new JSONObject(jsonString);
+                 String acronimos = jsonObject.getString("acronimo");
+                 int creditos = jsonObject.getInt("creditos");
+                 String cuatrimestre = jsonObject.getString("cuatrimestre");
+                 String nombre = jsonObject.getString("nombre");
+                 int curso = jsonObject.getInt("curso");
+  
+                 asignatura."setDato(dato)";
      
                 return asignatura;
 
@@ -445,19 +445,17 @@ Para ello creamos un metodo llamado htmlAlu que reciba los datos del alumno para
            
            //(i=0) 
            Asignaturas primera = getInfoAsignatura(asignas.get(0).getNombre(), key, cookies);
-
-           MISMO CODIGO QUE EN FOR-POSTERIOR
+           MISMO CODIGO QUE EN FOR-POSTERIOR...
            
            for (int i = 1; i < asignas.size(); i++) {
-            
                Asignaturas asi = getInfoAsignatura(asignas.get(i).getNombre(), key, cookies);
                response.getWriter().println(
                ...
                + "     <table>\r\n"
                + "    <tr><th>Nombre</th><th>Nota</th><th>Curso</th><th>Cuatrimestre</th><th>Créditos</th></tr>\r\n"
                + "    <tr><td>"+asi.getNombre()+"</td><td>"+asignas.get(i).getNota()+"</td><td>"+asi.getCurso()+"</td><td>"+asi.getCuatrimestre()+"</td><td>"+asi.getCreditos()+"</td></tr>\r\n"
+           ...
     
-             ...
 
 Sin embargo el resultado obtenido no era el esperado. Pues en cada inicio de sesión, donde en cada subventana de la pagina aparece el acrónimo de la asignatura, al darle deberiamos ver la información de la asignatura en concreto. Sin embargo, en la primera carga de esta pagina, aporta la información de todas la asignaturas. Esto al cambiar de pestaña "se arregla".
 
@@ -471,15 +469,15 @@ Sin embargo el resultado obtenido no era el esperado. Pues en cada inicio de ses
 
 A su vez, tuvimos que aplicar un control escrito para conocer el rol de los usuarios que inician sesión.
 
-    if (!key.equals("-1")) {
-                if (request.isUserInRole("rolpro")) {
-                    htmlProf(response, dni, key, cookies);
-                } else if (request.isUserInRole("rolalu")) {
-                    htmlAlu(response, dni, key, cookies);
-                } else {
-                    response.sendError(401);
-                }
-            }
+         if (!key.equals("-1")) {
+                     if (request.isUserInRole("rolpro")) {
+                         htmlProf(response, dni, key, cookies);
+                     } else if (request.isUserInRole("rolalu")) {
+                         htmlAlu(response, dni, key, cookies);
+                     } else {
+                         response.sendError(401);
+                     }
+                 }
 
 <h3>Puntos tratados:</h3>
  
