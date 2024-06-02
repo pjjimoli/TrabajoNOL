@@ -99,6 +99,9 @@ Todos los miembros del grupo deben de entender el código realizado y pensar una
 
 
 
+     
+
+
 
 <h2>ACTA REUNIÓN 2</h2>
 
@@ -192,8 +195,6 @@ Todos los miembros del grupo deben de entender el código realizado y pensar una
 <h3>Intervención del Profesor:</h3>
  
 No se requiere intervención del profesor en esta sesión.
-
-
 
 
 
@@ -401,11 +402,13 @@ Todos los miembros del grupo deben de entender el código realizado y pensar una
 
 
 
-
  
 <h3>Intervención del Profesor:</h3>
  
 No se requiere intervención del profesor en esta sesión.
+
+
+
 
 
 
@@ -543,8 +546,15 @@ Asistentes:
 
 <h3>Desarrollo:</h3>
  
+Empezamos leyendo el email del profesor para observar las tareas a corregir, de esta forma empezamos punto por punto, a excepción del cambio de Acta que es trabajo del Secretario.
+Que en resumen quitó la parte de código no relevante y ciertas partes, de este, fueron resumidas para un mejor seguimiento y entendimiento.
 
-       
+Para activar el servidor de la pjjimoli MV, tuvimos que activar el Tomcat 
+
+               ~/apache/bin/startup.sh
+
+
+
 
 <h3>Puntos tratados:</h3>  
  
