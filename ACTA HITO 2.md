@@ -516,3 +516,55 @@ La colaboración y comunicación entre estos miembros es efectiva a la par que e
 Todos los miembros coinciden en el objetivo principal de obtener una buena calificación, con una inclinación ambiciosa a la maxima nota.
 Hasta la fecha, la unica dificultad técnica con la que distintos miembros hemos tenido problemas fue tras la segunda reunión. Estos problemas surgían a la hora de acceder a las paginas web del proyecto, ya que en la base de datos resultaba haber un error.
 Este error provocaba un bloqueo de acceso a la página y para atravesar esta seguridad debías iniciar sesión con el login (dni y contraseña) de un usuario de la aplicación. Sin embargo, ciertos compañeros siguieron con el problema, aunque, este no impidio la continuación pues no había problema para el desarrolo del proyecto debido a que la MV prototipo principal no sufría de este problema.
+
+
+
+
+
+
+
+<h2>ACTA REUNIÓN DE RECUPERACIÓN</h2>
+
+
+Fecha: 02/6/2024  
+Horario: 18:00 - x:x  
+Tipo de Reunión: Videoconferencia Discord   
+Grupo: L1-3TI21
+Asistentes: 
+- Blauvac Brea, Adrián Pierre  
+- García Bartolomé, Javier  
+- Jiménez Olivares, Pedro José  
+- Moris Puig, Yvan  
+- Rea Mejia, Maria Carmen  
+- Trull Martí, Andreu  
+ 
+(Nota: Un asterisco (*) indica los asistentes ausentes) 
+
+
+<h3>Desarrollo:</h3>
+ 
+
+       
+
+<h3>Puntos tratados:</h3>  
+ 
+* Recuperación y correción de los fallos del Hito2
+
+
+
+<h3>Resumen de Nuevas Tareas:</h3>  
+ 
+1. El servidor indicado en la documentación (pjjimoli) no contiene la aplicación.
+2. Necesita autenticación (web=CE) para la página principal, que lleva a un formulario para autenticarse.
+3. Carga detalles de cada asignatura, evitando encadenar peticiones en sesión (de hecho no guarda key).
+4. web.xml no contiene servlets ni filtros (enlace /login con @WebServlet).
+5. Menciones a versiones no admitidas de Bootstrap y jQuery.
+6. Actas con código completo (abuso)
+   
+
+<h3>Intervención del Profesor:</h3>
+
+ No se requiere intervención del profesor en esta sesión.
+ 
+
+
