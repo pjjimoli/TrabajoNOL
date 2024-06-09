@@ -1,8 +1,10 @@
 
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -59,7 +61,20 @@ public class AlumnoDetail extends HttpServlet {
 	            response.setCharacterEncoding("UTF-8");
 	            System.out.println("Array: "+ getAsignAlumn(dni, key, cookies, nombreServer).toString());
 	            response.getWriter().write(getAsignAlumn(dni, key, cookies, nombreServer).toString());
-			} 
+			} else if (action.equals("getAvatar")) {
+
+                String carpeta = getServletContext().getRealPath("/WEB-INF/img");
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8");
+
+                BufferedReader origen = new BufferedReader(new FileReader(carpeta+"/"+ dni + ".pngb64" ));
+                PrintWriter out = response.getWriter();
+                out.print("{ \"dni \": \""+ dni +"\",\"img\": \""); // Hay complicaciones con las comillas 
+                String linea = origen.readLine(); out.print(linea); // Y con los saltos de línea!!
+                while ((linea = origen.readLine()) != null) {out.print("\n"+linea);}
+                out.print("}");origen.close(); 
+           }
+	
 			  
 		} else {
 				response.setStatus(401);
@@ -75,7 +90,7 @@ public class AlumnoDetail extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	}
+	} 
 	
 	private JSONObject getInfoAsignatura(String acronimo, String key, List<String> cookies, String nombreServer, JSONObject Asignas)
 			throws MalformedURLException, IOException {

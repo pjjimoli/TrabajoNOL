@@ -33,7 +33,19 @@ $(document).ready(function() {
 		})
 
 
+
 		// Avatar
+        $.getJSON("AlumnoDetail?action=getAvatar")
+            .done(function(response){
+                 $("#esto").text(response.dni);
+                 $("#aqui").attr("src", "data:image/png;base64,"+response.img);
+            })
+            .fail(function(jqxhr, textStatus, error ) {
+                 var err = jqxhr.response.replace(",", "\n"); // Pequeños ajustes
+                 alert("Algo mal: "+error);
+        });
+		
+		// Asignaturas
 		$.ajax({
 			url:'AlumnoDetail',
 			type:'POST',
@@ -129,9 +141,9 @@ $(document).ready(function() {
 				</div>
 			</div>
 			
-			<form action="Certificado">
-              <input class="certificado2" type="submit" value="Crear Certificado">
-          </form>
+			
+              <a href="CertificadoAlu.html"><input class="certificado2" type="button" value="Crear Certificado"></a>
+          
 			
 		</div>
 	</main>

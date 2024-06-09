@@ -1,10 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+<link href="estilo.css" rel="stylesheet">
+<title>Certificado NOL</title>
 
+
+<style>
+
+th {
+color: #F8F5DF;
+border:0px;
+background-color: #095370;
+}
+
+td {
+color: #F8F5DF;
+border: 0px;
+background-color: #2280a3;
+}
+</style>
+
+<script>
+
+let fechaActual = new Date();
+
+let dia = fechaActual.getDate(); // Día del mes
+let mes = fechaActual.getMonth() + 1; // Los meses en JavaScript empiezan desde 0
+let año = fechaActual.getFullYear(); // Año
+
+
+
+
+// Asignaturas
+
+$(document).ready(function() {
+		//Nombres y dni
+		$.ajax({
+			url:'AlumnoDetail',
+			type:'POST',
+			dataType:'json',
+			data: { action: 'getAlumno'},
+			async:true,
+			success: function(datos){
+				$('#nombre').text(datos.nombre+" "+datos.apellidos);
+				$('#dni').text(datos.dni);
+				$('#dia').text(dia);
+				$('#mes').text(mes);
+				$('#año').text(año);
+			},
+			error: function(xhr, status, error) {
+			    console.error(xhr.responseText);
+			    alert("Error!!! No se encuentra alumno");
+			}
+
+		})
+
+
+		// Avatar
+		$.ajax({
+			url:'AlumnoDetail',
+			type:'POST',
+			dataType:'json',
+			async:true,
+			data: { action: 'getAsignAlumn' },
+			error: function(xhr, status, error) {
+			    console.error(xhr.responseText);
+			    alert("Error!!! No se encuentran asignaturas");
+			}
+,
+			success: function(datos){
+				$.each(datos, function(index, asignatura){ // Utiliza $.each() para iterar sobre las asignaturas
+                // Crear la estructura HTML para la tabla
+            var table = $('#tablaCertificado');
+            var tableHead = $('<tr>').append($('<th>').text('Acrónimo')).append($('<th>').text('Asignatura')).append($('<th>').text('Calificación'));
+            var tableBody = $('<tr>').append($('<th>').text(asignatura.asignatura)).append($('<td>').text(asignatura.nombre)).append($('<td>').text(asignatura.nota));
+            table.append(tableHead).append(tableBody);
+
+          
+
+          
+        });
+
+    }		
+  })
+})
+</script>
+</head>
+<body class="certificado">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<header>
+<div class="p-4 p-md-5 main center">
+            <div>
+              <h1>DEW - CentroEducativo</h1>
+            </div>
+        </div>
+</header>
+<h2 align="center" style="margin: 30px 30px;">Certificado sin validez académica</h2>
+<div style="margin: 5px;">
+<div style="float: left; width: 70%;">
+<p>
+<b>DEW - Centro Educativo</b> certifica que D/Dª <b><span id="nombre"> </span></b>,
+con DNI <span id="dni"> </span>, matriculado/a en el curso 2023/2024, ha obtenido las calificaciones que se muestran en la siguiente tabla.
+</p>
+</div>
+<div style="float: right; width: 27%;">
+<img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" style="width: 150px; height: 150px;"></img>
+</div>
+<table class="tablaCertificado" id="tablaCertificado" style="border:0px; width: 580px; border-collapse: separate; border-spacing: 2px 2px; font-size:17px;">
+
+
+
+</table>
+<div>
+<p align="right">En Valencia, a <span id="dia"></span> de <span id="mes"></span> de <span id="año"></span></p>
+</div>
+
+</div>
 </body>
 </html>

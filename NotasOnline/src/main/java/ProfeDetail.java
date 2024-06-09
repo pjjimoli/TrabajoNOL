@@ -122,7 +122,7 @@ public class ProfeDetail extends HttpServlet {
 		String auxiliar = "";
 		String jsonString = "";
 		
-		HttpURLConnection connection = (HttpURLConnection) new URL(
+		HttpURLConnection connection = (HttpURLConnection) new URL( 
 				"http://"+ nombreServer +":9090/CentroEducativo/profesores/" + dni + "/asignaturas?key=" + key).openConnection();
 
 		connection.setDoInput(true);
