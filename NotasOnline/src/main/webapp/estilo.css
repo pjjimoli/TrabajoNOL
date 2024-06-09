@@ -10,6 +10,21 @@
 	margin-top: 30px;
 }
 
+ .atras{
+        color: #F8F5DF;
+    background-color: #012E40;
+    border: none;
+    padding: 10px 20px;
+    font-size:20px;
+    border-radius: 25px;
+    margin-left: 10px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    cursor: pointer;
+    justify-content: center;
+        }
+        
 .grupo {
 	background-color: #F8F5DF;
 	color: #74664B;

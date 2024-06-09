@@ -10,22 +10,24 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+
+  <security-role>
+    <role-name>rolpro</role-name>
+  </security-role>
+  <security-role>
+    <role-name>rolalu</role-name>
+  </security-role>
+
   <security-constraint>
     <web-resource-collection>
-        <web-resource-name>Roles</web-resource-name>
-        <url-pattern>/*</url-pattern>
+      <web-resource-name>Roles</web-resource-name>
+      <url-pattern>/*</url-pattern>
     </web-resource-collection>
-        <auth-constraint>
-            <role-name>rolpro</role-name>
-            <role-name>rolalu</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <security-role>
-        <role-name>rolpro</role-name>
-    </security-role>
-    <security-role>
-        <role-name>rolalu</role-name>
-    </security-role>
+    <auth-constraint>
+      <role-name>rolpro</role-name>
+      <role-name>rolalu</role-name>
+    </auth-constraint>
+  </security-constraint>
     
     <login-config>
         <auth-method>BASIC</auth-method>
@@ -40,6 +42,16 @@
   <filter-mapping>
     <filter-name>LoginControl</filter-name>
     <url-pattern>/LoginControl</url-pattern>
+  </filter-mapping>
+  
+   <filter>
+    <display-name>SesionControl</display-name>
+    <filter-name>SesionControl</filter-name>
+    <filter-class>SesionControl</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SesionControl</filter-name>
+    <url-pattern>/SesionControl</url-pattern>
   </filter-mapping>
   
     <servlet>

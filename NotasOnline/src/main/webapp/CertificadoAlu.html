@@ -7,119 +7,115 @@
 <link href="estilo.css" rel="stylesheet">
 <title>Certificado NOL</title>
 
-
 <style>
-
 th {
-color: #F8F5DF;
-border:0px;
-background-color: #095370;
+  color: #F8F5DF;
+  border:0px;
+  background-color: #095370;
 }
 
 td {
-color: #F8F5DF;
-border: 0px;
-background-color: #2280a3;
+  color: #F8F5DF;
+  border: 0px;
+  background-color: #2280a3;
 }
 </style>
 
-<script>
-
-let fechaActual = new Date();
-
-let dia = fechaActual.getDate(); // Día del mes
-let mes = fechaActual.getMonth() + 1; // Los meses en JavaScript empiezan desde 0
-let año = fechaActual.getFullYear(); // Año
-
-
-
-
-// Asignaturas
-
-$(document).ready(function() {
-		//Nombres y dni
-		$.ajax({
-			url:'AlumnoDetail',
-			type:'POST',
-			dataType:'json',
-			data: { action: 'getAlumno'},
-			async:true,
-			success: function(datos){
-				$('#nombre').text(datos.nombre+" "+datos.apellidos);
-				$('#dni').text(datos.dni);
-				$('#dia').text(dia);
-				$('#mes').text(mes);
-				$('#año').text(año);
-			},
-			error: function(xhr, status, error) {
-			    console.error(xhr.responseText);
-			    alert("Error!!! No se encuentra alumno");
-			}
-
-		})
-
-
-		// Avatar
-		$.ajax({
-			url:'AlumnoDetail',
-			type:'POST',
-			dataType:'json',
-			async:true,
-			data: { action: 'getAsignAlumn' },
-			error: function(xhr, status, error) {
-			    console.error(xhr.responseText);
-			    alert("Error!!! No se encuentran asignaturas");
-			}
-,
-			success: function(datos){
-				$.each(datos, function(index, asignatura){ // Utiliza $.each() para iterar sobre las asignaturas
-                // Crear la estructura HTML para la tabla
-            var table = $('#tablaCertificado');
-            var tableHead = $('<tr>').append($('<th>').text('Acrónimo')).append($('<th>').text('Asignatura')).append($('<th>').text('Calificación'));
-            var tableBody = $('<tr>').append($('<th>').text(asignatura.asignatura)).append($('<td>').text(asignatura.nombre)).append($('<td>').text(asignatura.nota));
-            table.append(tableHead).append(tableBody);
-
-          
-
-          
-        });
-
-    }		
-  })
-})
-</script>
 </head>
 <body class="certificado">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script
-src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <header>
-<div class="p-4 p-md-5 main center">
-            <div>
-              <h1>DEW - CentroEducativo</h1>
-            </div>
-        </div>
+  <div class="p-4 p-md-5 main center">
+    <div>
+      <h1>DEW - CentroEducativo</h1>
+    </div>
+  </div>
 </header>
 <h2 align="center" style="margin: 30px 30px;">Certificado sin validez académica</h2>
 <div style="margin: 5px;">
-<div style="float: left; width: 70%;">
-<p>
-<b>DEW - Centro Educativo</b> certifica que D/Dª <b><span id="nombre"> </span></b>,
-con DNI <span id="dni"> </span>, matriculado/a en el curso 2023/2024, ha obtenido las calificaciones que se muestran en la siguiente tabla.
-</p>
-</div>
-<div style="float: right; width: 27%;">
-<img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" style="width: 150px; height: 150px;"></img>
-</div>
-<table class="tablaCertificado" id="tablaCertificado" style="border:0px; width: 580px; border-collapse: separate; border-spacing: 2px 2px; font-size:17px;">
-
-
-
-</table>
-<div>
-<p align="right">En Valencia, a <span id="dia"></span> de <span id="mes"></span> de <span id="año"></span></p>
+  <div style="float: left; width: 70%;">
+    <p>
+      <b>DEW - Centro Educativo</b> certifica que D/Dª <b><span id="nombre"> </span></b>,
+      con DNI <span id="dni"> </span>, matriculado/a en el curso 2023/2024, ha obtenido las calificaciones que se muestran en la siguiente tabla.
+    </p>
+  </div>
+  <div style="float: right; width: 27%;">
+    <img id="aqui" style="width: 150px; height: 150px;" alt="Avatar"></img>
+  </div>
+  <table class="tablaCertificado" id="tablaCertificado" style="border:0px; width: 580px; border-collapse: separate; border-spacing: 2px 2px; font-size:17px;">
+  </table>
+  <div>
+    <p align="right">En Valencia, a <span id="dia"></span> de <span id="mes"></span> de <span id="anyo"></span></p>
+  </div>
 </div>
 
-</div>
+<a href="javascript:history.back()"><input class="atras" type="button" value="Atrás"></a>
+
+<script>
+$(document).ready(function() {
+  let fechaActual = new Date();
+  let dia = fechaActual.getDate();
+  let mes = fechaActual.getMonth() + 1;
+  let anyo = fechaActual.getFullYear();
+  
+  // Nombres y dni
+  $.ajax({
+    url: 'AlumnoDetail',
+    type: 'POST',
+    dataType: 'json',
+    data: { action: 'getAlumno' },
+    async: true,
+    success: function(datos) {
+      $('#nombre').text(datos.nombre + " " + datos.apellidos);
+      $('#dni').text(datos.dni);
+      $('#dia').text(dia);
+      $('#mes').text(mes);
+      $('#anyo').text(anyo);
+    },
+    error: function(xhr, status, error) {
+      console.error(xhr.responseText);
+      alert("Error!!! No se encuentra alumno");
+    }
+  });
+
+  // Avatar
+  $.getJSON("AlumnoDetail?action=getAvatar")
+    .done(function(response) {
+      $("#esto").text(response.dni);
+      $("#aqui").attr("src", "data:image/png;base64," + response.img);
+    })
+    .fail(function(jqxhr, textStatus, error) {
+      var err = jqxhr.response.replace(",", "\n"); // Pequeños ajustes
+      alert("Algo mal: " + error);
+    });
+
+  // Asignaturas
+  $.ajax({
+    url: 'AlumnoDetail',
+    type: 'POST',
+    dataType: 'json',
+    async: true,
+    data: { action: 'getAsignAlumn' },
+    success: function(datos) {
+      var table = $('#tablaCertificado');
+      var tableHead = $('<thead>').append($('<tr>').append($('<th>').text('Acrónimo')).append($('<th>').text('Asignatura')).append($('<th>').text('Calificación')));
+      table.append(tableHead);
+      
+      $.each(datos, function(index, asignatura) {
+        var tableBody = $('<tr>').append($('<td>').text(asignatura.asignatura)).append($('<td>').text(asignatura.nombre)).append($('<td>').text(asignatura.nota));
+        table.append(tableBody);
+      });
+    },
+    error: function(xhr, status, error) {
+      console.error(xhr.responseText);
+      alert("Error!!! No se encuentran asignaturas");
+    }
+  });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

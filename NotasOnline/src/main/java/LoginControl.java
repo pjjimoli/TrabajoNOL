@@ -51,10 +51,10 @@ public class LoginControl extends HttpFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
-		System.out.println("Pasa filtro");
+		System.out.println("Pasa filtro Login");
         HttpServletRequest http_req = (HttpServletRequest) request;
         HttpServletResponse http_resp = (HttpServletResponse) response;
-        
+            
 		String dni = http_req.getParameter("dni");
 		String pass = http_req.getParameter("pass");
 	    String key = ""; 
@@ -66,7 +66,7 @@ public class LoginControl extends HttpFilter implements Filter {
 	        session.setAttribute("pass", pass);
 	        
 			String nombreMaquina = request.getServerName();
-			
+			 
 			URL CentroEducativo = new URL("http://"+ nombreMaquina +":9090/CentroEducativo/login");
 			HttpURLConnection connection = (HttpURLConnection) CentroEducativo.openConnection();
 			connection.setDoInput(true);
@@ -106,7 +106,7 @@ public class LoginControl extends HttpFilter implements Filter {
 			        	return; } else if (http_req.isUserInRole("rolpro")) {System.out.println("Prof"); http_resp.sendRedirect(http_req.getContextPath() + "/ProfeDetail.html"); return;}
 			    }
 			} else {
-				System.out.println("Parece que no ha sido posible establecer la conexion con el servidor");
+				System.out.println("Parece que no ha sido posible establecer la conexion con el servidor"); 
 				http_req.getSession().invalidate();
 				http_resp.sendRedirect("index.html");
 			}
@@ -118,8 +118,8 @@ public class LoginControl extends HttpFilter implements Filter {
         	return; } else if (http_req.isUserInRole("rolpro")) {System.out.println("Prof");http_resp.sendRedirect(http_req.getContextPath() + "/ProfeDetail.html"); return;}}
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
-	} 
-
+	}  
+ 
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */

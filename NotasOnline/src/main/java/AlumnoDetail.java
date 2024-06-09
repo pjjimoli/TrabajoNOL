@@ -62,17 +62,18 @@ public class AlumnoDetail extends HttpServlet {
 	            System.out.println("Array: "+ getAsignAlumn(dni, key, cookies, nombreServer).toString());
 	            response.getWriter().write(getAsignAlumn(dni, key, cookies, nombreServer).toString());
 			} else if (action.equals("getAvatar")) {
-
+				
                 String carpeta = getServletContext().getRealPath("/WEB-INF/img");
+                System.out.println("Carpeta: " + carpeta);
                 response.setContentType("text/plain");
                 response.setCharacterEncoding("UTF-8");
-
+                
                 BufferedReader origen = new BufferedReader(new FileReader(carpeta+"/"+ dni + ".pngb64" ));
                 PrintWriter out = response.getWriter();
-                out.print("{ \"dni \": \""+ dni +"\",\"img\": \""); // Hay complicaciones con las comillas 
+                out.print("{\"dni\": \""+dni+"\", \"img\": \""); // Hay complicaciones con las comillas 
                 String linea = origen.readLine(); out.print(linea); // Y con los saltos de línea!!
                 while ((linea = origen.readLine()) != null) {out.print("\n"+linea);}
-                out.print("}");origen.close(); 
+                out.print("\"}");origen.close(); 
            }
 	
 			  
@@ -81,7 +82,6 @@ public class AlumnoDetail extends HttpServlet {
 				response.getWriter().append("No tienes permitido realizar esta accion!");
 				return;
 				}
-    	
 		}
 
 	/**
@@ -150,7 +150,7 @@ public class AlumnoDetail extends HttpServlet {
 		for (int i = 0; i < Asignas.length(); i++ ){
 			JSONObject jsonObject = Asignas.getJSONObject(i);
 		    String acronimo = jsonObject.getString("asignatura");
-			//Asignas = getInfoAsignatura(acronimo, key, cookies, nombreServer, Asignas);
+		
 	        JSONObject updatedObject = getInfoAsignatura(acronimo, key, cookies, nombreServer, jsonObject);
 			Asignas.put(i, updatedObject); // Update the existing object at index i
 		    
@@ -185,5 +185,5 @@ public class AlumnoDetail extends HttpServlet {
 		    JSONObject Alumno = new JSONObject(jsonString);
 
 		return Alumno;
-	}
+	} 
 }

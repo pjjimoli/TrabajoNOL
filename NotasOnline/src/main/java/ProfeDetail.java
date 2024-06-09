@@ -1,5 +1,4 @@
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,8 +22,8 @@ import org.json.JSONObject;
  */
 @WebServlet("/ProfeDetail")
 public class ProfeDetail extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+    private static final long serialVersionUID = 1L;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,116 +32,178 @@ public class ProfeDetail extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String nombreServer = request.getServerName();
-		HttpSession session = request.getSession();
-    	String dni = session.getAttribute("dni").toString();
-    	String key = session.getAttribute("key").toString();
-    	List<String> cookies = (List<String>) session.getAttribute("cookies");
-    	
-		if(request.isUserInRole("rolpro")) {
-	    	
-			  
-		} else {
-				response.setStatus(401);
-				response.getWriter().append("No tienes permitido realizar esta accion!");
-				return;
-				}
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String nombreServer = request.getServerName();
+        HttpSession session = request.getSession();
+        String dni = session.getAttribute("dni").toString();
+        String key = session.getAttribute("key").toString();
+        List<String> cookies = (List<String>) session.getAttribute("cookies");
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-	
-	private JSONObject getProf(String dni,
-			String key, List<String> cookies, String nombreServer) throws IOException {
-		HttpURLConnection connection = null;
+        if (request.isUserInRole("rolpro")) {
+            String action = request.getParameter("action");
+            System.out.println("action: " + action);
+            if (action != null) {
+                if (action.equals("getProfe")) {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(getProf(dni, key, cookies, nombreServer).toString());
+                } else if (action.equals("getAsignProfe")) {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(getAsignProf(dni, key, cookies, nombreServer).toString());
+                } else { System.out.println("No lo pilla");}
+            }
 
-		String auxiliar = "";
-		String jsonString = "";
+        } else {
+            response.setStatus(401);
+            response.getWriter().append("No tienes permitido realizar esta accion!");
+            return;
+        }
+    }
 
-		
-		connection = (HttpURLConnection) new URL(
-					"http://"+ nombreServer +":9090/CentroEducativo/profesores/" + dni + "?key=" + key).openConnection();
-		connection.setDoInput(true);
-		connection.setRequestMethod("GET");
-		connection.setRequestProperty("Accept", "*/*");
-		
-		for (String cookie : cookies) {
-			connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
-		}
-		
-		BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
 
-		while ((auxiliar = buff.readLine()) != null) { 
-			jsonString += auxiliar;
-		}
+    private JSONObject getProf(String dni,
+            String key, List<String> cookies, String nombreServer) throws IOException {
+        HttpURLConnection connection = null;
 
-		    JSONObject Profesor = new JSONObject(jsonString);
+        String auxiliar = "";
+        String jsonString = "";
 
-		return Profesor;
-	}
-	
-	private JSONArray getAsignProf(String dni, String key, List<String> cookies, String nombreServer)
-			throws MalformedURLException, IOException {
-		String auxiliar = "";
-		String jsonString = "";
-		
-		HttpURLConnection connection = (HttpURLConnection) new URL(
-				"http://"+ nombreServer +":9090/CentroEducativo/profesores/" + dni + "/asignaturas?key=" + key).openConnection();
+        connection = (HttpURLConnection) new URL(
+                "http://" + nombreServer + ":9090/CentroEducativo/profesores/" + dni + "?key=" + key).openConnection();
+        connection.setDoInput(true);
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "*/*");
 
-		connection.setDoInput(true);
-		connection.setRequestMethod("GET");
-		connection.setRequestProperty("Accept", "*/*");
-		for (String cookie : cookies) {
-			connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
-		}
-		
-		BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
- 
-		while ((auxiliar = buff.readLine()) != null) {
-			jsonString += auxiliar;
-		}
-		
-		JSONArray Asignaturas = new JSONArray(jsonString);
-		
-		return Asignaturas;
-	}
-	
-	private JSONArray getAlumnosProf(String dni, String key, List<String> cookies, String nombreServer)
-			throws MalformedURLException, IOException {
-		String auxiliar = "";
-		String jsonString = "";
-		
-		HttpURLConnection connection = (HttpURLConnection) new URL( 
-				"http://"+ nombreServer +":9090/CentroEducativo/profesores/" + dni + "/asignaturas?key=" + key).openConnection();
+        for (String cookie : cookies) {
+            connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
+        }
 
-		connection.setDoInput(true);
-		connection.setRequestMethod("GET");
-		connection.setRequestProperty("Accept", "*/*");
-		for (String cookie : cookies) {
-			connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
-		}
-		
-		BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
- 
-		while ((auxiliar = buff.readLine()) != null) {
-			jsonString += auxiliar;
-		}
-		
-		JSONArray Asignaturas = new JSONArray(jsonString);
-		
-		return Asignaturas;
-	}
-	
-	
+        BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        while ((auxiliar = buff.readLine()) != null) {
+            jsonString += auxiliar;
+        }
+
+        JSONObject Profesor = new JSONObject(jsonString);
+
+        return Profesor;
+    }
+
+    private JSONArray getAsignProf(String dni, String key, List<String> cookies, String nombreServer)
+            throws MalformedURLException, IOException {
+        String auxiliar = "";
+        String jsonString = "";
+        System.out.println("getAsignProf");
+        HttpURLConnection connection = (HttpURLConnection) new URL(
+                "http://" + nombreServer + ":9090/CentroEducativo/profesores/" + dni + "/asignaturas?key=" + key)
+                .openConnection();
+
+        connection.setDoInput(true);
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "*/*");
+        for (String cookie : cookies) {
+            connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
+        }
+
+        BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        while ((auxiliar = buff.readLine()) != null) {
+            jsonString += auxiliar;
+        }
+
+        JSONArray Asignaturas = new JSONArray(jsonString);
+
+        //for (int i = 0; i < Asignaturas.length(); i++) {
+         //   JSONObject asignatura = Asignaturas.getJSONObject(i);
+         //   String acronimo = asignatura.getString("asignatura");
+         //   JSONObject updatedAsignatura = getAlumnosAsigna(acronimo, key, cookies, nombreServer, asignatura);
+         //   
+         //  Asignaturas.put(i, updatedAsignatura); // Update the existing object at index i
+       // }
+
+        return Asignaturas;
+    }
+
+    private JSONObject getAlumnosAsigna(String acronimo, String key, List<String> cookies, String nombreServer,
+            JSONObject asignatura)
+            throws MalformedURLException, IOException {
+        String auxiliar = "";
+        String jsonString = "";
+
+        HttpURLConnection connection = (HttpURLConnection) new URL(
+                "http://" + nombreServer + ":9090/CentroEducativo/asignaturas/" + acronimo + "/alumnos?key=" + key)
+                .openConnection();
+
+        connection.setDoInput(true);
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "*/*");
+        for (String cookie : cookies) {
+            connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
+        }
+
+        BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        while ((auxiliar = buff.readLine()) != null) {
+            jsonString += auxiliar;
+        }
+
+        JSONObject alumnosArray = new JSONObject(jsonString.toString());
+
+        // Crear un JSONArray vacío para almacenar los alumnos actualizados
+
+
+        // Actualizar el objeto de asignatura con el JSONArray de alumnos actualizado
+	    for (String k : alumnosArray.keySet()) {
+	        asignatura.put(k, alumnosArray.get(k ));
+	    }
+
+        return asignatura;
+
+    }
+
+    private JSONObject getAlu(String dniAlumno,
+            String key, List<String> cookies, String nombreServer, JSONObject Alumno) throws IOException {
+        HttpURLConnection connection = null;
+
+        String auxiliar = "";
+        String jsonString = "";
+
+        connection = (HttpURLConnection) new URL(
+                "http://" + nombreServer + ":9090/CentroEducativo/alumnos/" + dniAlumno + "?key=" + key)
+                .openConnection();
+        connection.setDoInput(true);
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "*/*");
+
+        for (String cookie : cookies) {
+            connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
+        }
+
+        BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        while ((auxiliar = buff.readLine()) != null) {
+            jsonString += auxiliar;
+        }
+
+        JSONObject AlumnoInfo = new JSONObject(jsonString.toString());
+
+        
+        // Merge the new information into the existing JSON object
+        for (String a : AlumnoInfo.keySet()) {
+            Alumno.put(a, AlumnoInfo.get(a));
+        }
+
+        return Alumno;
+    }
 
 }
