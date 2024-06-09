@@ -142,4 +142,67 @@ margin-bottom:20px;
   color: #F8F5DF;
   background-color: #1582ad;
 }
-        
+     
+     
+.accordion{
+	--bs-accordion-btn-bg: #F8F5DF;
+	--bs-accordion-active-bg: #ebe7ce;
+	--bs-accordion-bg: #F8F5DF;
+	--bs-accordion-btn-focus-box-shadow: none;
+	--bs-accordion-border-radius: 25px;
+	--bs-accordion-btn-color: #74664B;
+	--bs-accordion-active-color: #74664B;
+	--bs-accordion-color: #74664B;
+	
+}   
+
+.modal-content{
+	background-color:#F8F5DF;
+	color:#74664B;
+}
+
+.close-btn{
+	background-color:#F8F5DF;
+	color:#74664B;
+	border:none;
+	position: absolute;
+	top:13px;
+	right:27px;
+	font-size:25px;
+}
+
+.modal-btn{
+	background-color:#F8F5DF;
+	color:#74664B;
+	border:none;
+	font-size:50px;
+}
+
+.user-img{
+	height:40%;
+	width:40%;
+}
+
+.certificado{
+	background-color:#F8F5DF;
+	color: #74664B;
+	max-width: 600px;
+	max-height: 900px;
+	margin: 10px auto 10px auto;
+	text-align: justify;
+	font-size: 20px;
+}
+
+.certificado2{
+        color: #74664B;
+	background-color: #F8F5DF;
+	border: none;
+	padding: 10px 20px;
+	font-size:20px;
+	border-radius: 25px;
+	margin-left: 10px;
+	position: absolute;
+	right: 50px;
+	cursor: pointer;
+	justify-content: center;
+        }
