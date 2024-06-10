@@ -393,7 +393,7 @@ Como se ve, este método recibe el JSONArray Asignaturas y le añadimos los dato
 
 <h4>ProfeDetail.java</h4>
 Solo se puede acceder a este servlet su nuestro rol es profesor. El servlet ProfeDetail.java es el encargado de comunicarse con CentroEducativo.
-Fragmentos de código más importantes de  AlumnoDetail.java:
+Fragmentos de código más importantes de  ProfeDetail.java:
 
 ```java
 
@@ -407,6 +407,8 @@ Fragmentos de código más importantes de  AlumnoDetail.java:
 
         if (request.isUserInRole("rolpro")) {
             String action = request.getParameter("action");
+            String asign = request.getParameter("asign");
+            System.out.println("asignatura: " + asign);
             System.out.println("action: " + action);
             if (action != null) {
                 if (action.equals("getProfe")) {
@@ -417,14 +419,31 @@ Fragmentos de código más importantes de  AlumnoDetail.java:
                     response.setContentType("application/json");
                     response.setCharacterEncoding("UTF-8");
                     response.getWriter().write(getAsignProf(dni, key, cookies, nombreServer).toString());
-                } else { System.out.println("No lo pilla");}
+                } else if (action.equals("getAlumnAsign")) {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(getAlumnosAsign(asign, key, cookies, nombreServer).toString());
+                } else if (action.equals("getAvatar")) {
+    				
+                    String carpeta = getServletContext().getRealPath("/WEB-INF/img");
+                    System.out.println("Carpeta: " + carpeta);
+                    response.setContentType("text/plain");
+                    response.setCharacterEncoding("UTF-8");
+                    
+                    BufferedReader origen = new BufferedReader(new FileReader(carpeta+"/"+ asign+ ".pngb64" ));
+                    PrintWriter out = response.getWriter();
+                    out.print("{\"dni\": \""+asign+"\", \"img\": \""); // Hay complicaciones con las comillas 
+                    String linea = origen.readLine(); out.print(linea); // Y con los saltos de línea!!
+                    while ((linea = origen.readLine()) != null) {out.print("\n"+linea);}
+                    out.print("\"}");origen.close(); 
+               } else { System.out.println("No lo pilla");}
             }
 
         } else {
             response.setStatus(401);
             response.getWriter().append("No tienes permitido realizar esta accion!");
             return;
-        }
+        } 
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -465,6 +484,86 @@ Aquí tendremos la llamada a getProf(), para recibir los datos de nuestro usuari
         JSONObject Profesor = new JSONObject(jsonString);
 
         return Profesor;
+    }
+
+Y estos son los métodos para adquirir las asignaturas del profesor y los alumnos de cada una de ellas:
+
+    private JSONArray getAsignProf(String dni, String key, List<String> cookies, String nombreServer)
+            throws MalformedURLException, IOException {
+        String auxiliar = "";
+        String jsonString = "";
+        System.out.println("getAsignProf");
+        HttpURLConnection connection = (HttpURLConnection) new URL(
+                "http://" + nombreServer + ":9090/CentroEducativo/profesores/" + dni + "/asignaturas?key=" + key)
+                .openConnection();
+
+        connection.setDoInput(true);
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "*/*"); 
+        for (String cookie : cookies) {
+            connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
+        }
+
+        BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        while ((auxiliar = buff.readLine()) != null) {
+            jsonString += auxiliar;
+        }
+
+        JSONArray Asignaturas = new JSONArray(jsonString);
+
+        //for (int i = 0; i < Asignaturas.length(); i++) {
+         //   JSONObject asignatura = Asignaturas.getJSONObject(i);
+         //   String acronimo = asignatura.getString("asignatura");
+         //   JSONObject updatedAsignatura = getAlumnosAsigna(acronimo, key, cookies, nombreServer, asignatura);
+         //   
+         //  Asignaturas.put(i, updatedAsignatura); // Update the existing object at index i
+       // }
+
+        return Asignaturas;
+    }
+
+    private JSONArray getAlumnosAsign(String acronimo, String key, List<String> cookies, String nombreServer)
+            throws MalformedURLException, IOException {
+        String auxiliar = "";
+        String jsonString = "";
+       
+        HttpURLConnection connection = (HttpURLConnection) new URL(
+                "http://" + nombreServer + ":9090/CentroEducativo/asignaturas/" + acronimo + "/alumnos?key=" + key)
+                .openConnection();
+        System.out.println("getAlumnosAsign");
+        connection.setDoInput(true);
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "*/*");
+        for (String cookie : cookies) {
+            connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
+        }
+
+        BufferedReader buff = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        while ((auxiliar = buff.readLine()) != null) {
+            jsonString += auxiliar;
+        } 
+
+        JSONArray alumnosArray = new JSONArray(jsonString);
+
+        // Crear un JSONArray vacío para almacenar los alumnos actualizados
+
+
+        // Actualizar el objeto de asignatura con el JSONArray de alumnos actualizado
+	    //for (String k : alumnosArray.keySet()) {
+	    //    asignatura.put(k, alumnosArray.get(k ));
+	    //}
+      //for (int i = 0; i < alumnosArray.length(); i++) {
+        //   JSONObject alumno = alumnosArray.getJSONObject(i);
+        //   String dni = alumno.getString("dni");
+        //   JSONObject updatedalumno= getAlu(dni, key, cookies, nombreServer, alumno);
+        //   
+        //  alumnosArray.put(i, updatedAlumno); // Update the existing object at index i
+      // }
+
+        return alumnosArray ;
+
     }
 
 
@@ -723,9 +822,248 @@ con DNI <span id="dni"> </span>, matriculado/a en el curso 2023/2024, ha obtenid
 <h4>ProfeDetail.html</h4>
 Página a la cual accede un usuario con el rol profesor después de iniciar sesión.
 Parte AJAX del documento:
-FALTA
+
+	<script>
+	// Asignaturas
+
+	$(document).ready(function() {
+    // Nombres y dni
+    $.ajax({
+        url: 'ProfeDetail',
+        type: 'POST',
+        dataType: 'json',
+        data: { action: 'getProfe' },
+        async: true,
+        success: function(datos) {
+            $('#nombre').text(datos.nombre + " " + datos.apellidos);
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+            alert("Error!!! No se encuentra profe");
+        }
+    })
+
+   
+    // Asignaturas
+    $.ajax({
+        url: 'ProfeDetail',
+        type: 'POST',
+        dataType: 'json',
+        async: true,
+        data: { action: 'getAsignProfe' },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+            alert("Error!!! No se encuentran asignaturas");
+        },
+        success: function(datos) {
+            // Iterar sobre cada asignatura en los datos recibidos
+            $.each(datos, function(index, asignatura) {
+                // Crear la estructura HTML para cada asignatura
+                var accordionItem = $('<div>').addClass('accordion-item');
+                var accordionHeader = $('<h2>').addClass('accordion-header');
+                var button = $('<button>').addClass('accordion-button collapsed').attr({
+                    'type': 'button',
+                    'data-bs-toggle': 'collapse',
+                    'data-bs-target': '#flush-collapse' + index,
+                    'aria-expanded': 'false',
+                    'aria-controls': 'flush-collapse' + index
+                }).text(asignatura.nombre);
+
+                var accordionCollapse = $('<div>').addClass('accordion-collapse collapse').attr({
+                    'id': 'flush-collapse' + index,
+                    'data-bs-parent': '#accordionFlushExample'
+                });
+                var accordionBody = $('<div>').addClass('accordion-body');
+                var ul = $('<ul>');
+
+                // Iterar sobre cada alumno en la asignatura
+               $.ajax({
+                    url: 'ProfeDetail',
+                    type: 'POST',
+                    dataType: 'json',
+                    async: true,
+                    data: { action: 'getAlumnAsign',asign: asignatura.acronimo},
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert("Error!!! No se encuentran alumnos");
+                    },
+                    success: function(datos) {
+               		 	var first = true;
+                    	 $.each(datos, function(index, alumno) {
+                         	if (first) {
+                                 // Lógica especial para la primera iteración
+                                 $('#alumno').text(alumno.alumno);
+                                 $('#notaVieja').text(alumno.nota);
+                                 first = false; // Cambiar la variable para que no se aplique en siguientes iteraciones
+                             } 
+                             ul.append($('<li>').text(alumno.alumno));
+                    	 })
+                    }
+           		})
+
+                var buttonContainer = $('<h3>').addClass('center');
+                var modificarButton = $('<input>').attr({
+                    'type': 'button',
+                    'value': 'MODIFICAR NOTAS',
+                    'class': 'main-button',
+                    'data-toggle': 'modal',
+                    'data-target': '#exampleModalCenter'
+                });
+
+                // Construir la estructura completa de la asignatura
+                buttonContainer.append(modificarButton);
+                accordionBody.append(ul, buttonContainer);
+                accordionCollapse.append(accordionBody);
+                accordionHeader.append(button);
+                accordionItem.append(accordionHeader, accordionCollapse);
+
+                // Agregar la asignatura al contenedor de acordeones
+                $('#accordionFlushExample').append(accordionItem);
+            });
+        }
+    });
+    $('#notaForm').submit(function(event) {
+        // Evitar que se envíe el formulario de manera predeterminada
+        event.preventDefault();
+
+        // Obtener los datos del formulario
+        var alumno = $('#alumno').val();
+        var nuevaNota = $('#nuevaNota').val();
+
+        // Crear un objeto con los datos a enviar al servidor
+        var data = {
+            alumno: alumno,
+            nuevaNota: nuevaNota
+        };
+
+        // Enviar la solicitud AJAX al servlet
+        $.ajax({
+            url: 'ProfeDetail', // Reemplaza 'ProfeDetail' con servlet de envio (por hacer)
+            type: 'post',
+            dataType: 'json',
+            data: data,
+            success: function(response) {
+                // Manejar la respuesta del servidor si es necesario
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                // Manejar errores de la solicitud AJAX
+                console.error(xhr.responseText);
+            }
+        });
+    });
+    
+    $.getJSON("ProfeDetail?action=getAvatar")
+    .done(function(response){
+         $("#aqui").attr("src", "data:image/png;base64,"+response.img);
+    })
+    .fail(function(jqxhr, textStatus, error ) {
+         var err = jqxhr.response.replace(",", "\n"); // Pequeños ajustes
+         alert("Algo mal: "+error);
+	});  
+	});
+	
+	</script>
+
 Seguido del AJAX se encuentra el resto del documento html que ayuda e definir el diseño entre otras cosas. Mostramos una parte:
-FALTA
+
+	</head>
+	<body>
+	<form action="Logout">
+		<input class="logout" type="submit" value="Cerrar Sesión">
+	</form>
+
+	<main class="container-fluid">
+		<div class="p-4 p-md-5 mb-4 main">
+			<div class="mx-auto p-1 center">
+
+
+
+				<h1 class="display-4 fw-bold">NOTAS ONLINE</h1>
+				<p id ="nombre" class="lead my-1">Nombre, Profesor Aquí</p>
+				<p class="lead my-3">Aquí se muestran las asignaturas que
+					impartes junto a los alumnos</p>
+			</div>
+		</div>
+		<div class="row g-5">
+			<div class="col-md-8">
+
+				<div class="accordion accordion-flush" id="accordionFlushExample">
+					
+				</div>
+
+			</div>
+			<div class="col-md-4">
+				<div class="p-4 mb-3 grupo">
+					<h4 class="center">GRUPO 3TI21_G2</h4>
+					<ul>
+						<li>Blauvac Brea, Adrián Pierre</li>
+						<li>García Bartolomé, Javier</li>
+						<li>Jiménez Olivares, Pedro José</li>
+						<li>Moris Puig, Yvan</li>
+						<li>Rea Mejia, Maria Carmen</li>
+						<li>Trull Martí, Andreu</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Modificar
+						notas</h5>
+					<button type="button" class="close-btn" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="modal-body center">
+
+					<table>
+						<td>
+							<button type="button" class="modal-btn">
+								<span aria-hidden="true">&laquo;</span>
+							</button>
+						</td>
+						<td><img id= "aqui" class="user-img"
+							src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg">
+							<p ><span id="alumno">  Nombre, Alumno Aquí </span> </br> <span id="notaVieja">NotaAntigua: </span> </p> 
+
+							<form>
+
+								<input id="nuevaNota" type="text" name="nota" size="4"></br>
+								<button id="notaForm" type="submit" class="main-button">MODIFICAR</button>
+							</form></td>
+
+						<td>
+					<button type="button" class="modal-btn">
+							<span aria-hidden="true">&raquo;</span>
+						</button>
+						</td>
+
+						</table>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+
+	</body>
+
+
+	</html>
 
 
 <h2>4.Actas de reuniones</h2>
