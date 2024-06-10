@@ -1,7 +1,9 @@
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -46,6 +48,8 @@ public class ProfeDetail extends HttpServlet {
 
         if (request.isUserInRole("rolpro")) {
             String action = request.getParameter("action");
+            String asign = request.getParameter("asign");
+            System.out.println("asignatura: " + asign);
             System.out.println("action: " + action);
             if (action != null) {
                 if (action.equals("getProfe")) {
@@ -56,14 +60,31 @@ public class ProfeDetail extends HttpServlet {
                     response.setContentType("application/json");
                     response.setCharacterEncoding("UTF-8");
                     response.getWriter().write(getAsignProf(dni, key, cookies, nombreServer).toString());
-                } else { System.out.println("No lo pilla");}
+                } else if (action.equals("getAlumnAsign")) {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(getAlumnosAsign(asign, key, cookies, nombreServer).toString());
+                } else if (action.equals("getAvatar")) {
+    				
+                    String carpeta = getServletContext().getRealPath("/WEB-INF/img");
+                    System.out.println("Carpeta: " + carpeta);
+                    response.setContentType("text/plain");
+                    response.setCharacterEncoding("UTF-8");
+                    
+                    BufferedReader origen = new BufferedReader(new FileReader(carpeta+"/"+ asign+ ".pngb64" ));
+                    PrintWriter out = response.getWriter();
+                    out.print("{\"dni\": \""+asign+"\", \"img\": \""); // Hay complicaciones con las comillas 
+                    String linea = origen.readLine(); out.print(linea); // Y con los saltos de línea!!
+                    while ((linea = origen.readLine()) != null) {out.print("\n"+linea);}
+                    out.print("\"}");origen.close(); 
+               } else { System.out.println("No lo pilla");}
             }
 
         } else {
             response.setStatus(401);
             response.getWriter().append("No tienes permitido realizar esta accion!");
             return;
-        }
+        } 
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -97,7 +118,7 @@ public class ProfeDetail extends HttpServlet {
         JSONObject Profesor = new JSONObject(jsonString);
 
         return Profesor;
-    }
+    } 
 
     private JSONArray getAsignProf(String dni, String key, List<String> cookies, String nombreServer)
             throws MalformedURLException, IOException {
@@ -110,7 +131,7 @@ public class ProfeDetail extends HttpServlet {
 
         connection.setDoInput(true);
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("Accept", "*/*");
+        connection.setRequestProperty("Accept", "*/*"); 
         for (String cookie : cookies) {
             connection.addRequestProperty("Cookie", cookie.split(";", 2)[0]);
         }
@@ -134,16 +155,15 @@ public class ProfeDetail extends HttpServlet {
         return Asignaturas;
     }
 
-    private JSONObject getAlumnosAsigna(String acronimo, String key, List<String> cookies, String nombreServer,
-            JSONObject asignatura)
+    private JSONArray getAlumnosAsign(String acronimo, String key, List<String> cookies, String nombreServer)
             throws MalformedURLException, IOException {
         String auxiliar = "";
         String jsonString = "";
-
+       
         HttpURLConnection connection = (HttpURLConnection) new URL(
                 "http://" + nombreServer + ":9090/CentroEducativo/asignaturas/" + acronimo + "/alumnos?key=" + key)
                 .openConnection();
-
+        System.out.println("getAlumnosAsign");
         connection.setDoInput(true);
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Accept", "*/*");
@@ -155,19 +175,26 @@ public class ProfeDetail extends HttpServlet {
 
         while ((auxiliar = buff.readLine()) != null) {
             jsonString += auxiliar;
-        }
+        } 
 
-        JSONObject alumnosArray = new JSONObject(jsonString.toString());
+        JSONArray alumnosArray = new JSONArray(jsonString);
 
         // Crear un JSONArray vacío para almacenar los alumnos actualizados
 
 
         // Actualizar el objeto de asignatura con el JSONArray de alumnos actualizado
-	    for (String k : alumnosArray.keySet()) {
-	        asignatura.put(k, alumnosArray.get(k ));
-	    }
+	    //for (String k : alumnosArray.keySet()) {
+	    //    asignatura.put(k, alumnosArray.get(k ));
+	    //}
+      //for (int i = 0; i < alumnosArray.length(); i++) {
+        //   JSONObject alumno = alumnosArray.getJSONObject(i);
+        //   String dni = alumno.getString("dni");
+        //   JSONObject updatedalumno= getAlu(dni, key, cookies, nombreServer, alumno);
+        //   
+        //  alumnosArray.put(i, updatedAlumno); // Update the existing object at index i
+      // }
 
-        return asignatura;
+        return alumnosArray ;
 
     }
 

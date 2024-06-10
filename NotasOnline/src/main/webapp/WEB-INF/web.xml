@@ -65,6 +65,17 @@
     <url-pattern>/AlumnoDetail</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <description></description>
+    <display-name>ProfeCalifica</display-name>
+    <servlet-name>ProfeCalifica</servlet-name>
+    <servlet-class>ProfeCalifica</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfeCalifica</servlet-name>
+    <url-pattern>/ProfeCalifica</url-pattern>
+  </servlet-mapping>
+  
       <servlet>
     <description></description>
     <display-name>ProfeDetail</display-name>

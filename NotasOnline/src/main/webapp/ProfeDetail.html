@@ -37,6 +37,7 @@ $(document).ready(function() {
         }
     })
 
+   
     // Asignaturas
     $.ajax({
         url: 'ProfeDetail',
@@ -70,9 +71,29 @@ $(document).ready(function() {
                 var ul = $('<ul>');
 
                 // Iterar sobre cada alumno en la asignatura
-                $.each(asignatura.alumnos, function(index, alumno) {
-                    ul.append($('<li>').text(alumno));
-                });
+               $.ajax({
+                    url: 'ProfeDetail',
+                    type: 'POST',
+                    dataType: 'json',
+                    async: true,
+                    data: { action: 'getAlumnAsign',asign: asignatura.acronimo},
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert("Error!!! No se encuentran alumnos");
+                    },
+                    success: function(datos) {
+               		 	var first = true;
+                    	 $.each(datos, function(index, alumno) {
+                         	if (first) {
+                                 // Lógica especial para la primera iteración
+                                 $('#alumno').text(alumno.alumno);
+                                 $('#notaVieja').text(alumno.nota);
+                                 first = false; // Cambiar la variable para que no se aplique en siguientes iteraciones
+                             } 
+                             ul.append($('<li>').text(alumno.alumno));
+                    	 })
+                    }
+           		})
 
                 var buttonContainer = $('<h3>').addClass('center');
                 var modificarButton = $('<input>').attr({
@@ -93,41 +114,49 @@ $(document).ready(function() {
                 // Agregar la asignatura al contenedor de acordeones
                 $('#accordionFlushExample').append(accordionItem);
             });
-
-            $('#notaForm').submit(function(event) {
-                // Evitar que se envíe el formulario de manera predeterminada
-                event.preventDefault();
-
-                // Obtener los datos del formulario
-                var alumno = $('#alumno').val();
-                var nuevaNota = $('#nuevaNota').val();
-
-                // Crear un objeto con los datos a enviar al servidor
-                var data = {
-                    alumno: alumno,
-                    nuevaNota: nuevaNota
-                };
-
-                // Enviar la solicitud AJAX al servlet
-                $.ajax({
-                    url: 'ProfeDetail', // Reemplaza '/ruta-a-tu-servlet' con la URL de tu servlet
-                    type: 'post',
-                    dataType: 'json',
-                    data: data,
-                    success: function(response) {
-                        // Manejar la respuesta del servidor si es necesario
-                        console.log(response);
-                    },
-                    error: function(xhr, status, error) {
-                        // Manejar errores de la solicitud AJAX
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
         }
     });
-});
+    $('#notaForm').submit(function(event) {
+        // Evitar que se envíe el formulario de manera predeterminada
+        event.preventDefault();
 
+        // Obtener los datos del formulario
+        var alumno = $('#alumno').val();
+        var nuevaNota = $('#nuevaNota').val();
+
+        // Crear un objeto con los datos a enviar al servidor
+        var data = {
+            alumno: alumno,
+            nuevaNota: nuevaNota
+        };
+
+        // Enviar la solicitud AJAX al servlet
+        $.ajax({
+            url: 'ProfeDetail', // Reemplaza 'ProfeDetail' con servlet de envio (por hacer)
+            type: 'post',
+            dataType: 'json',
+            data: data,
+            success: function(response) {
+                // Manejar la respuesta del servidor si es necesario
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                // Manejar errores de la solicitud AJAX
+                console.error(xhr.responseText);
+            }
+        });
+    });
+    
+    $.getJSON("ProfeDetail?action=getAvatar")
+    .done(function(response){
+         $("#aqui").attr("src", "data:image/png;base64,"+response.img);
+    })
+    .fail(function(jqxhr, textStatus, error ) {
+         var err = jqxhr.response.replace(",", "\n"); // Pequeños ajustes
+         alert("Algo mal: "+error);
+});  
+});
+	
 </script>
 
 </head>
@@ -194,7 +223,7 @@ $(document).ready(function() {
 								<span aria-hidden="true">&laquo;</span>
 							</button>
 						</td>
-						<td><img class="user-img"
+						<td><img id= "aqui" class="user-img"
 							src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg">
 							<p ><span id="alumno">  Nombre, Alumno Aquí </span> </br> <span id="notaVieja">NotaAntigua: </span> </p> 
 
@@ -203,7 +232,6 @@ $(document).ready(function() {
 								<input id="nuevaNota" type="text" name="nota" size="4"></br>
 								<button id="notaForm" type="submit" class="main-button">MODIFICAR</button>
 							</form></td>
-
 
 						<td>
 					<button type="button" class="modal-btn">
